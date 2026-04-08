@@ -2077,19 +2077,15 @@
   
   <div class="modal fade" id="addSvcModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+      <form  method="post" action="{{ route('create.category') }}" class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nouveau service</h5><button type="button" class="btn-close"
+          <h5 class="modal-title" >Nouveau Category</h5><button type="button" class="btn-close"
             data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body p-4">
           <div class="row g-3">
-            <div class="col-12"><label class="form-label">Nom du service</label><input type="text" class="form-control"
+            <div class="col-12"><label class="form-label">Nom du Gategory</label><input type="text" class="form-control"
                 placeholder="Ex: Coupe dégradée" /></div>
-            <div class="col-sm-6"><label class="form-label">Durée (min)</label><input type="number" class="form-control"
-                value="30" /></div>
-            <div class="col-sm-6"><label class="form-label">Prix (MAD)</label><input type="number" class="form-control"
-                value="50" /></div>
             <div class="col-12"><label class="form-label">Description</label><textarea class="form-control"
                 rows="2"></textarea></div>
           </div>
@@ -2097,7 +2093,7 @@
         <div class="modal-footer"><button class="btn-do" data-bs-dismiss="modal">Annuler</button><button class="btn-g"
             data-bs-dismiss="modal" onclick="alert('✦ Service ajouté !')"><i
               class="bi bi-check2 me-1"></i>Créer</button></div>
-      </div>
+      </form>
     </div>
   </div>
 
