@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ControllerCategory;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
     });
+        Route::post('/create/category', [ControllerCategory::class, 'store'])->name('create.category');
+
 
     Route::middleware('Role:Barber')->group(function () {
         Route::get('/barber/dashboard', function () {

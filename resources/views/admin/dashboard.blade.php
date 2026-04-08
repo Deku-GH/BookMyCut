@@ -2084,9 +2084,9 @@
         </div>
         <div class="modal-body p-4">
           <div class="row g-3">
-            <div class="col-12"><label class="form-label">Nom du Gategory</label><input type="text" class="form-control"
+            <div class="col-12"><label class="form-label">Nom du Gategory</label><input type="text" name="name" class="form-control"
                 placeholder="Ex: Coupe dégradée" /></div>
-            <div class="col-12"><label class="form-label">Description</label><textarea class="form-control"
+            <div class="col-12"><label class="form-label">Description</label><textarea  name="description" class="form-control"
                 rows="2"></textarea></div>
           </div>
         </div>
