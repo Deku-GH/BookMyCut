@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ControllerService extends Controller
@@ -19,7 +20,7 @@ class ControllerService extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -27,7 +28,17 @@ class ControllerService extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+        
+            'titre' => 'required|string|max:191',
+            'duration' => 'required|string|max:191',
+            'description' => 'required|string|max:191',
+            'barbre_id' => 'required',
+            'category_id' => 'required',
+     
+
+        ]);
+        Service::create($validation);
     }
 
     /**

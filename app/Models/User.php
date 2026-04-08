@@ -16,17 +16,19 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
-     protected $fillable = [
-        'name',
+    protected $fillable = [
+        'ferstname',
+        'lastname',
         'email',
+        'telephone',
+        'role_id',
         'password',
-        'role_id'
     ];
 
     // Relations
-    public function Role()
+   public function role()
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
     public function barber()
     {
