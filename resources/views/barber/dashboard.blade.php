@@ -1414,137 +1414,157 @@
                     </div>
                 </div>
             </div>
-             <div class="ps" id="p-services">
-        <div class="row g-4">
-          <div class="col-lg-8">
-            <div class="tc">
-              <div class="th">
-                <h6>Catalogue des services</h6><button class="btn-g" data-bs-toggle="modal"
-                  data-bs-target="#addSvcModal"><i class="bi bi-plus"></i>Nouveau</button>
-              </div>
-              <div class="table-responsive">
-                <table class="tt">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Service</th>
-                      <th>Durée</th>
-                      <th>Prix</th>
-                      <th>RDV/mois</th>
-                      <th>Visibilité</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="color:var(--muted)">S01</td>
-                      <td><i class="bi bi-scissors me-2" style="color:var(--gold)"></i>Coupe de cheveux</td>
-                      <td>30 min</td>
-                      <td style="color:var(--gold)">50 MAD</td>
-                      <td>92</td>
-                      <td><label class="tgl"><input type="checkbox" checked /><span class="tgl-sl"></span></label></td>
-                      <td><button class="btn-sm eg me-1">Éditer</button><button class="btn-sm er">Suppr.</button></td>
-                    </tr>
-                    <tr>
-                      <td style="color:var(--muted)">S02</td>
-                      <td><i class="bi bi-stars me-2" style="color:var(--gold)"></i>Taille de barbe</td>
-                      <td>20 min</td>
-                      <td style="color:var(--gold)">30 MAD</td>
-                      <td>61</td>
-                      <td><label class="tgl"><input type="checkbox" checked /><span class="tgl-sl"></span></label></td>
-                      <td><button class="btn-sm eg me-1">Éditer</button><button class="btn-sm er">Suppr.</button></td>
-                    </tr>
-                    <tr>
-                      <td style="color:var(--muted)">S03</td>
-                      <td><i class="bi bi-gem me-2" style="color:var(--gold)"></i>Coupe + Barbe</td>
-                      <td>45 min</td>
-                      <td style="color:var(--gold)">70 MAD</td>
-                      <td>130</td>
-                      <td><label class="tgl"><input type="checkbox" checked /><span class="tgl-sl"></span></label></td>
-                      <td><button class="btn-sm eg me-1">Éditer</button><button class="btn-sm er">Suppr.</button></td>
-                    </tr>
-                    <tr>
-                      <td style="color:var(--muted)">S04</td>
-                      <td><i class="bi bi-droplet-half me-2" style="color:var(--blue)"></i>Soin & Shampoing</td>
-                      <td>30 min</td>
-                      <td style="color:var(--gold)">40 MAD</td>
-                      <td>34</td>
-                      <td><label class="tgl"><input type="checkbox" checked /><span class="tgl-sl"></span></label></td>
-                      <td><button class="btn-sm eg me-1">Éditer</button><button class="btn-sm er">Suppr.</button></td>
-                    </tr>
-                    <tr>
-                      <td style="color:var(--muted)">S05</td>
-                      <td><i class="bi bi-brush me-2" style="color:var(--purple)"></i>Coloration</td>
-                      <td>60 min</td>
-                      <td style="color:var(--gold)">120 MAD</td>
-                      <td>18</td>
-                      <td><label class="tgl"><input type="checkbox" /><span class="tgl-sl"></span></label></td>
-                      <td><button class="btn-sm eg me-1">Éditer</button><button class="btn-sm er">Suppr.</button></td>
-                    </tr>
-                    <tr>
-                      <td style="color:var(--muted)">S06</td>
-                      <td><i class="bi bi-award me-2" style="color:var(--gold)"></i>Forfait Premium</td>
-                      <td>75 min</td>
-                      <td style="color:var(--gold)">100 MAD</td>
-                      <td>7</td>
-                      <td><label class="tgl"><input type="checkbox" checked /><span class="tgl-sl"></span></label></td>
-                      <td><button class="btn-sm eg me-1">Éditer</button><button class="btn-sm er">Suppr.</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div class="ps" id="p-services">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="tc">service
+                            <div class="th">
+                                <h6>Catalogue des services</h6><button class="btn-g" data-bs-toggle="modal"
+                                    data-bs-target="#addSvcModal"><i class="bi bi-plus"></i>Nouveau</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="tt">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Service</th>
+                                            <th>Durée</th>
+                                            <th>Prix</th>
+                                            <th>RDV/mois</th>
+                                            <th>Visibilité</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="color:var(--muted)">S01</td>
+                                            <td><i class="bi bi-scissors me-2" style="color:var(--gold)"></i>Coupe de
+                                                cheveux</td>
+                                            <td>30 min</td>
+                                            <td style="color:var(--gold)">50 MAD</td>
+                                            <td>92</td>
+                                            <td><label class="tgl"><input type="checkbox" checked /><span
+                                                        class="tgl-sl"></span></label></td>
+                                            <td><button class="btn-sm eg me-1">Éditer</button><button
+                                                    class="btn-sm er">Suppr.</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:var(--muted)">S02</td>
+                                            <td><i class="bi bi-stars me-2" style="color:var(--gold)"></i>Taille de
+                                                barbe</td>
+                                            <td>20 min</td>
+                                            <td style="color:var(--gold)">30 MAD</td>
+                                            <td>61</td>
+                                            <td><label class="tgl"><input type="checkbox" checked /><span
+                                                        class="tgl-sl"></span></label></td>
+                                            <td><button class="btn-sm eg me-1">Éditer</button><button
+                                                    class="btn-sm er">Suppr.</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:var(--muted)">S03</td>
+                                            <td><i class="bi bi-gem me-2" style="color:var(--gold)"></i>Coupe + Barbe
+                                            </td>
+                                            <td>45 min</td>
+                                            <td style="color:var(--gold)">70 MAD</td>
+                                            <td>130</td>
+                                            <td><label class="tgl"><input type="checkbox" checked /><span
+                                                        class="tgl-sl"></span></label></td>
+                                            <td><button class="btn-sm eg me-1">Éditer</button><button
+                                                    class="btn-sm er">Suppr.</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:var(--muted)">S04</td>
+                                            <td><i class="bi bi-droplet-half me-2" style="color:var(--blue)"></i>Soin &
+                                                Shampoing</td>
+                                            <td>30 min</td>
+                                            <td style="color:var(--gold)">40 MAD</td>
+                                            <td>34</td>
+                                            <td><label class="tgl"><input type="checkbox" checked /><span
+                                                        class="tgl-sl"></span></label></td>
+                                            <td><button class="btn-sm eg me-1">Éditer</button><button
+                                                    class="btn-sm er">Suppr.</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:var(--muted)">S05</td>
+                                            <td><i class="bi bi-brush me-2" style="color:var(--purple)"></i>Coloration
+                                            </td>
+                                            <td>60 min</td>
+                                            <td style="color:var(--gold)">120 MAD</td>
+                                            <td>18</td>
+                                            <td><label class="tgl"><input type="checkbox" /><span
+                                                        class="tgl-sl"></span></label></td>
+                                            <td><button class="btn-sm eg me-1">Éditer</button><button
+                                                    class="btn-sm er">Suppr.</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:var(--muted)">S06</td>
+                                            <td><i class="bi bi-award me-2" style="color:var(--gold)"></i>Forfait
+                                                Premium</td>
+                                            <td>75 min</td>
+                                            <td style="color:var(--gold)">100 MAD</td>
+                                            <td>7</td>
+                                            <td><label class="tgl"><input type="checkbox" checked /><span
+                                                        class="tgl-sl"></span></label></td>
+                                            <td><button class="btn-sm eg me-1">Éditer</button><button
+                                                    class="btn-sm er">Suppr.</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="tc">
+                            <div class="th">
+                                <h6>Performance services</h6>
+                            </div>
+                            <div class="p-3 d-flex flex-column gap-3">
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span
+                                            style="font-size:0.82rem;color:#ccc">Coupe +
+                                            Barbe</span><span style="font-size:0.78rem;color:var(--gold)">38%</span>
+                                    </div>
+                                    <div class="prog">
+                                        <div class="prog-f" style="width:38%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span
+                                            style="font-size:0.82rem;color:#ccc">Coupe</span><span
+                                            style="font-size:0.78rem;color:var(--gold)">27%</span></div>
+                                    <div class="prog">
+                                        <div class="prog-f" style="width:27%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span
+                                            style="font-size:0.82rem;color:#ccc">Barbe</span><span
+                                            style="font-size:0.78rem;color:var(--gold)">18%</span></div>
+                                    <div class="prog">
+                                        <div class="prog-f" style="width:18%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span
+                                            style="font-size:0.82rem;color:#ccc">Soin</span><span
+                                            style="font-size:0.78rem;color:var(--gold)">10%</span></div>
+                                    <div class="prog">
+                                        <div class="prog-f" style="width:10%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between mb-1"><span
+                                            style="font-size:0.82rem;color:#ccc">Premium</span><span
+                                            style="font-size:0.78rem;color:var(--gold)">7%</span></div>
+                                    <div class="prog">
+                                        <div class="prog-f" style="width:7%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="tc">
-              <div class="th">
-                <h6>Performance services</h6>
-              </div>
-              <div class="p-3 d-flex flex-column gap-3">
-                <div>
-                  <div class="d-flex justify-content-between mb-1"><span style="font-size:0.82rem;color:#ccc">Coupe +
-                      Barbe</span><span style="font-size:0.78rem;color:var(--gold)">38%</span></div>
-                  <div class="prog">
-                    <div class="prog-f" style="width:38%"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="d-flex justify-content-between mb-1"><span
-                      style="font-size:0.82rem;color:#ccc">Coupe</span><span
-                      style="font-size:0.78rem;color:var(--gold)">27%</span></div>
-                  <div class="prog">
-                    <div class="prog-f" style="width:27%"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="d-flex justify-content-between mb-1"><span
-                      style="font-size:0.82rem;color:#ccc">Barbe</span><span
-                      style="font-size:0.78rem;color:var(--gold)">18%</span></div>
-                  <div class="prog">
-                    <div class="prog-f" style="width:18%"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="d-flex justify-content-between mb-1"><span
-                      style="font-size:0.82rem;color:#ccc">Soin</span><span
-                      style="font-size:0.78rem;color:var(--gold)">10%</span></div>
-                  <div class="prog">
-                    <div class="prog-f" style="width:10%"></div>
-                  </div>
-                </div>
-                <div>
-                  <div class="d-flex justify-content-between mb-1"><span
-                      style="font-size:0.82rem;color:#ccc">Premium</span><span
-                      style="font-size:0.78rem;color:var(--gold)">7%</span></div>
-                  <div class="prog">
-                    <div class="prog-f" style="width:7%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
             <!-- ===== STATS ===== -->
             <div class="ps" id="p-stats">
@@ -1736,7 +1756,7 @@
 
         </div>
     </div>
-    
+
 
     <!-- ADD SLOT MODAL -->
     <div class="modal fade" id="addSlotModal" tabindex="-1">
@@ -1769,29 +1789,30 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="addSvcModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <form method="post" action="{{ route("create.service") }}" class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Nouveau service</h5><button type="button" class="btn-close"
                         data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-12"><label class="form-label">Nom du service</label><input type="text"
+                        <div class="col-12"><label class="form-label">Nom du service</label><input type="text" name="titre"
                                 class="form-control" placeholder="Ex: Coupe dégradée" /></div>
-                        <div class="col-sm-6"><label class="form-label">Durée (min)</label><input type="number"
+                        <div class="col-sm-6"><label class="form-label">Durée (min)</label><input type="number" name="duration"
                                 class="form-control" value="30" /></div>
                         <div class="col-sm-6"><label class="form-label">Prix (MAD)</label><input type="number"
                                 class="form-control" value="50" /></div>
-                        <div class="col-12"><label class="form-label">Description</label><textarea class="form-control"
+                        <div class="col-12"><label class="form-label">Description</label><textarea class="form-control" name="description"
                                 rows="2"></textarea></div>
                     </div>
                 </div>
                 <div class="modal-footer"><button class="btn-do" data-bs-dismiss="modal">Annuler</button><button
                         class="btn-g" data-bs-dismiss="modal" onclick="alert('✦ Service ajouté !')"><i
                             class="bi bi-check2 me-1"></i>Créer</button></div>
-            </div>
+            </form>
         </div>
     </div>
 
