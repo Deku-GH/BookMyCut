@@ -843,7 +843,7 @@
             </div>
         </div>
         <nav class="sb-nav">
-            <a class="ni" onclick="sp('services',this)"><i class="bi bi-list-stars"></i><span
+            <a class="ni" href="{{ route("create.services") }}" onclick="sp('services',this)"><i class="bi bi-list-stars"></i><span
                     class="lbl">Services</span></a>
 
             <div class="sec-lbl">Tableau de bord</div>
@@ -1756,7 +1756,7 @@
 
         </div>
     </div>
-
+             Catalogue
 
     <!-- ADD SLOT MODAL -->
     <div class="modal fade" id="addSlotModal" tabindex="-1">
@@ -1799,14 +1799,27 @@
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-12"><label class="form-label">Nom du service</label><input type="text" name="titre"
-                                class="form-control" placeholder="Ex: Coupe dégradée" /></div>
-                        <div class="col-sm-6"><label class="form-label">Durée (min)</label><input type="number" name="duration"
-                                class="form-control" value="30" /></div>
+                        <div class="col-12"><label class="form-label">Nom du service</label><input type="text"
+                                name="titre" class="form-control" placeholder="Ex: Coupe dégradée" /></div>
+                        <div class="col-sm-6"><label class="form-label">Durée (min)</label><input type="number"
+                                name="duration" class="form-control" value="30" /></div>
                         <div class="col-sm-6"><label class="form-label">Prix (MAD)</label><input type="number"
                                 class="form-control" value="50" /></div>
-                        <div class="col-12"><label class="form-label">Description</label><textarea class="form-control" name="description"
-                                rows="2"></textarea></div>
+                        <div class="col-12"><label class="form-label">Description</label><textarea class="form-control"
+                                name="description"></textarea></div>
+                        <div class="col-12">
+                            <label class="form-label">Category</label>
+                            <select class="form-control" name="category_id">
+                                <option value="">-- Select Category --</option>
+
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer"><button class="btn-do" data-bs-dismiss="modal">Annuler</button><button

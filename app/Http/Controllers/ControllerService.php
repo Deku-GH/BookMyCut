@@ -2,74 +2,94 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerService extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+ 
     public function index()
     {
-        //
-    }
+       
 
-    /**
-     * Show the form for creating a new resource.
-     */
+     
+    }
     public function create()
     {
+         $services = Service::where('barber_id', Auth::user()->barber->id)->get();
+        $categories = Category::all();
 
+        return view('barber.create_service', compact('categories','services'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        $validation = $request->validate([
-        
+        $validated = $request->validate([
             'titre' => 'required|string|max:191',
             'duration' => 'required|string|max:191',
             'description' => 'required|string|max:191',
-            'barbre_id' => 'required',
-            'category_id' => 'required',
-     
-
+            'category_id' => 'required|exists:categories,id',
+            'prix' => 'required|integer'
         ]);
-        Service::create($validation);
+
+        $validated['barber_id'] = Auth::user()->barber->id;
+
+        Service::create($validated);
+
+        return redirect()->back()
+            ->with('success', 'Service created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $service = Service::findOrFail($id);
+
+        if ($service->barber_id !== Auth::user()->barber->id) {
+            abort(403);
+        }
+
+        $categories = Category::all();
+
+        return view('barber.edit_service', compact('service', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+       public function update(Request $request, $id)
     {
-        //
+        $service = Service::findOrFail($id);
+
+        if ($service->barber_id !== Auth::user()->barber->id) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'titre' => 'required|string|max:191',
+            'duration' => 'required|string|max:191',
+            'description' => 'required|string|max:191',
+            'category_id' => 'required|exists:categories,id',
+            'prix' => 'required|integer'
+        ]);
+
+        $service->update($validated);
+
+        return redirect()->route('create.services')
+            ->with('success', 'Service updated successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+   
+    public function destroy($id)
     {
-        //
-    }
+        $service = Service::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if ($service->barber_id !== Auth::user()->barber->id) {
+            abort(403);
+        }
+
+        $service->delete();
+
+        return redirect()->route('create.services')
+            ->with('success', 'Service deleted successfully');
     }
 }

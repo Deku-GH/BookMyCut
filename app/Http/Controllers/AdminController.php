@@ -3,16 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ControllerBarber extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     // Dashboard
+    public function dashboard()
     {
-        //
+        $users = User::latest()->take(5)->get();
+        $categories = Category::latest()->take(5)->get();
+
+        return view('admin.dashboard', compact('users', 'categories'));
+    }
+
+    // Users page
+    public function users()
+    {
+        $users = User::all();
+
+        return view('admin.users', compact('users'));
+    }
+
+    // Categories page
+    public function categories()
+    {
+        $categories = Category::all();
+
+        return view('admin.categories', compact('categories'));
     }
 
     /**
@@ -29,10 +50,6 @@ class ControllerBarber extends Controller
     public function store(Request $request)
     {
         //
-    } public function dashboard()
-    {
-        $categories = Category::all();
-        return view('barber.dashboard', compact('categories'));
     }
 
     /**

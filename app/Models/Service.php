@@ -10,7 +10,8 @@ class Service extends Model
         'description',
         'duration',
         'barber_id',
-        'category_id'
+        'category_id',
+        'prix'
     ];
 
     public function category()

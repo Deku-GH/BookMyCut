@@ -29,8 +29,7 @@ class AuthController extends Controller
             'role_id' => 'required',
             'password' => 'required|min:4|confirmed'
         ]);
-
-        $validate['password'] = bcrypt($validate['password']);
+        $validate['password'] = Hash::make($validate['password']);
         $role = Role::find($validate['role_id']);
         // dd($role);
         $user = User::create($validate);
@@ -75,9 +74,18 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        $user = Auth::user(); 
+        $user = Auth::user();
+        // dd($user->status);
+        if ($user->status != "Acteve") {
+            Auth::logout();
+
+            return back()->withErrors([
+                'email' => 'Your account is inactive'
+            ]);
+        }
         $role = $user->role;
         return match ($role->name) {
+
             'Barber' => redirect()->route('barber.dashboard'),
             'Admin' => redirect()->route('admin.dashboard'),
             default => redirect()->route('client.dashboard'),

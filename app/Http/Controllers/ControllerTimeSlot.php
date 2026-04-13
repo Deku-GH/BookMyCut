@@ -3,62 +3,79 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Timeslot;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerTimeSlot extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $timeslots = Timeslot::where('barber_id', Auth::user()->barber->id)->get();
+        
+        // dd($timeslots);
+        return view('barber.timeslots', compact('timeslots'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $barbers = User::where('role', 'barber')->get();
+        return view('timeslots.create', compact('barbers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'barber_id' => 'required',
+            'day' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+
+        Timeslot::create([
+            'barber_id' => $request->barber_id,
+            'day' => $request->day,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+        ]);
+
+        return redirect()->back()->with('success', 'Timeslot created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $timeslot = Timeslot::findOrFail($id);
+        $barbers = User::where('role', 'barber')->get();
+
+        return view('timeslots.edit', compact('timeslot', 'barbers'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $timeslot = Timeslot::findOrFail($id);
+
+        $request->validate([
+            'barber_id' => 'required',
+            'day' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+
+        $timeslot->update([
+            'barber_id' => $request->barber_id,
+            'day' => $request->day,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+        ]);
+
+        return redirect()->back()->with('success', 'Timeslot updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $timeslot = Timeslot::findOrFail($id);
+        $timeslot->delete();
+
+        return redirect()->back()->with('success', 'Timeslot deleted successfully');
     }
 }

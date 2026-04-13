@@ -23,6 +23,7 @@ class User extends Authenticatable
         'telephone',
         'role_id',
         'password',
+           'status',
     ];
 
     // Relations
