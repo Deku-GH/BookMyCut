@@ -16,7 +16,7 @@
                         <h5 class="mb-1 text-white" style="font-family:'Playfair Display', serif; letter-spacing: 0.5px;">
                             <i class="bi bi-collection me-2 text-gold"></i>Catalogue
                         </h5>
-                        <p class="text-muted small mb-0">Structurez vos services et offres</p>
+                        <p class="text-gold small mb-0">Structurez vos services et offres</p>
                     </div>
                     <button class="btn-g px-4 py-2" data-bs-toggle="modal" data-bs-target="#createCatModal">
                         <i class="bi bi-plus-lg me-2"></i>Nouvelle Catégorie
@@ -27,16 +27,17 @@
                     <table class="tt mb-0">
                         <thead>
                             <tr>
-                                <th class="ps-4 py-3 text-uppercase small tracking-wider text-muted">#</th>
-                                <th class="py-3 text-uppercase small tracking-wider text-muted">Détails</th>
-                                <th class="py-3 text-uppercase small tracking-wider text-muted text-center">Services</th>
-                                <th class="py-3 text-uppercase small tracking-wider text-muted text-end pe-4">Actions</th>
+                                <th class="ps-4 py-3 text-gold small tracking-wider ">#</th>
+                                <th class="py-3 text-gold small tracking-wider ">Détails</th>
+                                <th class="py-3 text-gold small tracking-wider  text-center">Services</th>
+                                <th class="py-3 text-gold small tracking-wider  text-end pe-4">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($categories as $i => $cat)
+                            @forelse($categories as  $cat)
                             <tr class="align-middle border-bottom border-white border-opacity-5">
                                 <td class="ps-4 text-muted small fw-bold" style="font-family: monospace; width: 60px;">
+                                     <div class="fw-bold text-white mb-1">{{ $cat->id }}</div>
                                 </td>
                                 <td class="py-4">
                                     <div class="d-flex align-items-center gap-3">
@@ -45,7 +46,7 @@
                                         </div>
                                         <div>
                                             <div class="fw-bold text-white mb-1">{{ $cat->name }}</div>
-                                            <div class="text-muted small text-truncate" style="max-width: 280px; font-weight: 300;">
+                                            <div class=" small text-truncate" style="max-width: 280px; font-weight: 300;">
                                                 {{ $cat->description ?? 'Aucune description fournie' }}
                                             </div>
                                         </div>

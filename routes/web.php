@@ -36,6 +36,7 @@ Route::middleware('Role:Admin')->prefix('admin')->name('admin.')->group(function
     Route::post('/category',        [ControllerCategory::class, 'store'])  ->name('category.store');
     Route::get('/category/{id}',    [ControllerCategory::class, 'edit']) ->name('category.edit');
     Route::put('/category/{id}',    [ControllerCategory::class, 'update']) ->name('category.update');
+    Route::PATCH('/user/{id}',  [AdminController::class, 'updateuser']) ->name('user.update');
     Route::delete('/category/{id}', [ControllerCategory::class, 'destroy'])->name('category.destroy');
 });
 

@@ -535,7 +535,211 @@
     font-weight: 700;
     font-size: 0.7rem !important;
 }
+/* --- Variables & Fonts --- */
+.font-playfair { font-family: 'Playfair Display', serif; }
+.tiny { font-size: 0.75rem; }
+
+/* --- Layout --- */
+.luxury-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.luxury-card {
+    background: #16181D; /* Noir mat luxe */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* --- Header --- */
+.luxury-header {
+    padding: 2rem;
+    background: linear-gradient(to right, rgba(201, 168, 76, 0.05), transparent);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-circle-gold {
+    width: 45px;
+    height: 45px;
+    background: rgba(201, 168, 76, 0.1);
+    color: #C9A84C;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.btn-back {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+.btn-back:hover { color: #C9A84C; }
+
+/* --- Form --- */
+.luxury-body { padding: 2.5rem; }
+
+.luxury-label {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 1rem;
+    color: #C9A84C;
+}
+
+.input-wrapper input, .luxury-body textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 0.8rem 1rem 0.8rem 2.8rem;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.luxury-body textarea { padding-left: 1rem; }
+
+.input-wrapper input:focus, .luxury-body textarea:focus {
+    outline: none;
+    border-color: #C9A84C;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+}
+
+/* --- Info Box --- */
+.luxury-info-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(201, 168, 76, 0.2);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+}
+
+/* --- Buttons --- */
+.btn-gold-luxury {
+    background: #C9A84C;
+    color: #000;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-grow: 1;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gold-luxury:hover {
+    background: #e2c065;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(201, 168, 76, 0.2);
+}
+
+.btn-outline-luxury {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.btn-outline-luxury:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.error-text { color: #ef4444; font-size: 0.75rem; margin-top: 0.5rem; display: block; }
+/* --- Card & Header --- */
+.admin-card {
+    background: #16181D;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.admin-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-link-gold {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Table Styles --- */
+.table-minimal {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-minimal th {
+    padding: 1rem 1.5rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+}
+
+.table-minimal td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    vertical-align: middle;
+}
+
+.table-minimal tr:last-child td { border-bottom: none; }
+
+/* --- Elements --- */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.role-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.tiny { font-size: 0.7rem; }
     </style>
+
     @stack('styles')
 </head>
 
@@ -551,7 +755,7 @@
         <div class="sb-user">
             <div class="u-av"><i class="bi bi-person-badge"></i></div>
             <div class="user-info">
-                <div class="u-name">{{ Auth::user()->firstname }}</div>
+                <div class="u-name">{{ Auth::user()->ferstname   }} {{ Auth::user()->lastname   }}</div>
                 <div style="font-size: 0.65rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">
                     Administrateur</div>
             </div>

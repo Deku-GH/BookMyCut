@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barber;
+use App\Models\Booking;
 use App\Models\Category;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,10 +17,16 @@ class AdminController extends Controller
      // Dashboard
     public function dashboard()
     {
-        $users = User::latest()->take(5)->get();
+        $totalClients = User::all()->count();
+        $totalBarbers = Barber::all()->count();
+        // dd( $totalBarbers );
+        $totalCategories = Category::all()->count();
+        $totalServices = Service::all()->count();
+        $totalBookings =Booking::all()->count();
+       $latestUsers=User::latest()->take(5)->get();
         $categories = Category::latest()->take(5)->get();
 
-        return view('admin.dashboard', compact('users', 'categories'));
+        return view('admin.dashboard', compact('latestUsers','totalClients','totalBarbers','totalCategories','totalServices','totalBookings', 'categories'));
     }
 
     // Users page
@@ -27,7 +36,15 @@ class AdminController extends Controller
 
         return view('admin.users', compact('users'));
     }
+public function updateuser($id){
+    $user= User::find($id);
+    $user->status = $user->status== 'Acteve'?'dexacteve':'Acteve';
+    // dd($user);
+    $user->save();
 
+    return back()->with('success', 'Status updated');
+
+}
     // Categories page
     public function categories()
     {
