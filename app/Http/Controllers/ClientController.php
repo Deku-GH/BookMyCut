@@ -15,9 +15,8 @@ class ClientController extends Controller
     public function dashboard()
     {
         $user     = Auth::user();
-        $bookings = Booking::where('client_id', $user->id)
+        $bookings = Booking::where('user_id', $user->id)
                            ->with(['service', 'barber.user'])
-                           ->latest('date')
                            ->get();
 
         $nextBooking     = $bookings->where('status', 'pending')
@@ -41,7 +40,7 @@ class ClientController extends Controller
     // ── All bookings ─────────────────────────────────────────────
     public function rdvs()
     {
-        $bookings = Booking::where('client_id', Auth::id())
+        $bookings = Booking::where('user_id', Auth::id())
                            ->with(['service', 'barber.user'])
                            ->latest('date')
                            ->paginate(10);
@@ -67,7 +66,7 @@ class ClientController extends Controller
     {
         $categories = Category::withCount('services')->get();
 
-        $query = Service::with('category')->where('active', true);
+        $query = Service::with('category');
 
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
@@ -91,7 +90,7 @@ class ClientController extends Controller
     // ── Reservation form ─────────────────────────────────────────
     public function reservation(Request $request)
     {
-        $services = Service::with('category')->where('active', true)->get();
+        $services = Service::with('category');
         $barbers  = Barber::with(['user', 'services'])->get();
         $categories = Category::all();
 
@@ -102,6 +101,7 @@ class ClientController extends Controller
         $selectedBarber  = $request->filled('barber')
             ? Barber::with('user')->find($request->barber)
             : null;
+            dd($selectedBarber);
 
         return view('client.reservation', compact(
             'services', 'barbers', 'categories', 'selectedService', 'selectedBarber'

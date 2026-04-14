@@ -57,7 +57,7 @@ Route::middleware('Role:Admin')->prefix('admin')->name('admin.')->group(function
 
     });
 
-    Route::middleware('Role:Client')->group(function () {
+    Route::middleware('Role:Client')->prefix('client')->name('client.')->group(function () {
          Route::get('/dashboard',         [ClientController::class, 'dashboard'])       ->name('dashboard');
     Route::get('/rdvs',                   [ClientController::class, 'rdvs'])            ->name('rdvs');
     Route::patch('/rdvs/{id}/cancel',     [ClientController::class, 'cancelBooking'])   ->name('rdv.cancel');

@@ -1,610 +1,233 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CoiffeurPro – @yield('title', 'Administration')</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoiffeurPro – @yield('title', 'Espace Client')</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
         :root {
-            --gold: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.3);
-            --bg-deep: #0f1115;
-            --bg-card: #1a1d23;
-            --text-main: #f8f9fa;
-            --text-muted: #8e95a2;
-            --border-thin: rgba(255, 255, 255, 0.05);
+            --gold: #C9A84C;
+            --gold-light: #E8C96A;
+            --gold-dim: rgba(201, 168, 76, 0.1);
+            --dark-bg: #0C0D0E;
+            --dark-card: #16181D;
+            --dark-border: rgba(255, 255, 255, 0.06);
+            --text-main: #F0EFE9;
+            --text-muted: #8E9196;
+            --sidebar-w: 260px;
+            --sidebar-c: 85px;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--dark-bg);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
+            margin: 0;
             display: flex;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* --- SIDEBAR REFINED --- */
+        /* --- LOGIQUE SIDEBAR (SANS JS) --- */
+        #sidebar-check { display: none; }
+
         .sidebar {
-            width: 260px;
-            background: linear-gradient(180deg, #16191e 0%, #0f1115 100%);
-            border-right: 1px solid var(--border-thin);
+            width: var(--sidebar-w);
+            background: var(--dark-card);
+            border-right: 1px solid var(--dark-border);
+            height: 100vh;
+            position: fixed;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
             display: flex;
             flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            z-index: 1000;
         }
 
-        .sb-head {
+        /* État rétracté */
+        #sidebar-check:checked ~ .sidebar { width: var(--sidebar-c); }
+        #sidebar-check:checked ~ .sidebar .nav-text, 
+        #sidebar-check:checked ~ .sidebar .brand-full { display: none; }
+
+        .sidebar-header {
             padding: 2rem 1.5rem;
-            text-align: center;
+            height: 90px;
+            display: flex;
+            align-items: center;
         }
 
         .brand-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
             color: var(--gold);
-            letter-spacing: -0.5px;
-            text-shadow: 0 0 15px var(--gold-glow);
+            font-size: 1.4rem;
+            text-decoration: none;
+            font-weight: 900;
         }
 
-        .sb-user {
-            margin: 0 1.2rem 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
+        .nav-list {
+            flex: 1;
+            padding: 1rem 0.8rem;
+            list-style: none;
+            margin: 0;
+        }
+
+        .nav-link-custom {
             display: flex;
             align-items: center;
-            gap: 12px;
-            border: 1px solid var(--border-thin);
-        }
-
-        .u-av {
-            width: 40px;
-            height: 40px;
-            background: var(--gold);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-deep);
-            font-size: 1.2rem;
-        }
-
-        .ni {
-            margin: 4px 15px;
-            padding: 12px 16px;
+            gap: 1rem;
+            padding: 0.9rem 1rem;
             color: var(--text-muted);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-radius: 10px;
-            transition: 0.3s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
+            border-radius: 12px;
+            transition: 0.2s;
+            margin-bottom: 0.4rem;
         }
 
-        .ni i {
-            font-size: 1.1rem;
-        }
-
-        .ni:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--white);
-        }
-
-        .ni.active {
-            background: var(--gold-glow);
+        .nav-link-custom:hover, .nav-link-custom.active {
+            background: var(--gold-dim);
             color: var(--gold);
-            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
         }
 
-        .sec-lbl {
-            padding: 1.5rem 1.8rem 0.5rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            opacity: 0.6;
-        }
+        .nav-link-custom i { font-size: 1.3rem; }
 
-        /* --- MAIN LAYOUT --- */
-        .main {
+        /* --- CONTENU PRINCIPAL --- */
+        .main-wrapper {
             flex: 1;
-            margin-left: 260px;
-            padding: 0;
-            background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent);
+            margin-left: var(--sidebar-w);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .topbar {
-            height: 80px;
+        #sidebar-check:checked ~ .main-wrapper { margin-left: var(--sidebar-c); }
+
+        .top-nav {
+            height: 90px;
             padding: 0 2.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(15, 17, 21, 0.8);
+            background: rgba(12, 13, 14, 0.8);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-thin);
             position: sticky;
             top: 0;
-            z-index: 999;
+            z-index: 900;
+            border-bottom: 1px solid var(--dark-border);
         }
 
-        .t-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
+        .toggle-btn {
+            cursor: pointer;
+            color: var(--gold);
+            font-size: 1.5rem;
         }
 
-        .t-sub {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+        .content-area { padding: 2.5rem; }
 
-        .content {
-            padding: 2.5rem;
-        }
-
-        /* --- UI COMPONENTS --- */
-        .tc {
-            background: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid var(--border-thin);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .th {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-thin);
-        }
-
-        .btn-g {
-            background: var(--gold);
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.85rem;
+        /* --- COMPOSANTS UI --- */
+        .card-luxe {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 1.8rem;
             transition: 0.3s;
         }
 
-        .btn-g:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--gold-glow);
-            background: #e5be47;
-        }
+        .card-luxe:hover { border-color: rgba(201, 168, 76, 0.3); }
 
-        .pill {
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Stats Card Styling */
-        .sc {
-            background: var(--bg-card);
-            border: 1px solid var(--border-thin);
-            border-radius: 16px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-        }
-
-        .sc:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
-            border-color: rgba(212, 175, 55, 0.2);
-        }
-
-        .sc .accent {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-        }
-
-        .sc-ico {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Glassy Icon Colors */
-        .sc-ico.g {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold);
-        }
-
-        .sc-ico.p {
-            background: rgba(168, 85, 247, 0.1);
-            color: #a855f7;
-        }
-
-        .sc-ico.b {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-        }
-
-        .sc-ico.gr {
-            background: rgba(34, 197, 94, 0.1);
-            color: #22c55e;
-        }
-
-        .sc-ico.o {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
-
-        .sc-ico.r {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
-
-        .sc-val {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-            line-height: 1;
-            margin-bottom: 0.3rem;
-        }
-
-        .sc-lbl {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        /* Alerts */
-        .alert-ok,
-        .alert-err {
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-        }
-
-        .alert-ok {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
-
-        .alert-err {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        /* Table Styles */
-        .tt {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-
-        .tt thead th {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 1.2rem 1.5rem;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-thin);
-            font-weight: 600;
-        }
-
-        .tt tbody td {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border-thin);
-            vertical-align: middle;
-            font-size: 0.9rem;
-            transition: 0.2s ease;
-        }
-
-        .tt tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        /* User Avatar Initials */
-        .user-init {
-            width: 35px;
-            height: 35px;
-            background: var(--bg-deep);
-            border: 1px solid var(--border-thin);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            color: var(--gold);
-            font-weight: 700;
-            text-shadow: 0 0 5px var(--gold-glow);
-        }
-
-        /* Pill Colors for the new UI */
-        .pill.pp {
-            background: rgba(168, 85, 247, 0.1);
-            color: #a855f7;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-        }
-
-        .pill.po {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.2);
-        }
-
-        .pill.pb {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .pill.pg {
-            background: rgba(34, 197, 94, 0.1);
-            color: #22c55e;
-            border: 1px solid rgba(34, 197, 94, 0.2);
-        }
-
-        /* Progress Bars for Stats */
-        .prog {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .prog-f {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), #e5be47);
-            border-radius: 10px;
-            box-shadow: 0 0 10px var(--gold-glow);
-        }
-
-        /* Action Buttons */
-        .btn-sm {
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid transparent;
-            transition: 0.2s;
-            background: transparent;
-        }
-
-        .eg {
-            color: var(--gold);
-            border-color: rgba(212, 175, 55, 0.2);
-        }
-
-        .eg:hover {
+        .btn-gold {
             background: var(--gold);
             color: #000;
+            font-weight: 700;
+            border-radius: 50px;
+            padding: 0.7rem 1.8rem;
+            border: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
         }
 
-        .er {
-            color: #ef4444;
-            border-color: rgba(239, 68, 68, 0.2);
+        @media (max-width: 992px) {
+            .sidebar { left: -260px; }
+            #sidebar-check:checked ~ .sidebar { left: 0; width: var(--sidebar-w); }
+            .main-wrapper { margin-left: 0 !important; }
         }
-
-        .er:hover {
-            background: #ef4444;
-            color: #fff;
-        }
-
-        /* Modal Styling */
-        .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-thin);
-            border-radius: 16px;
-            color: var(--text-main);
-        }
-
-        .modal-header {
-            border-bottom: 1px solid var(--border-thin);
-        }
-
-        .modal-footer {
-            border-top: 1px solid var(--border-thin);
-        }
-
-        .form-control {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-thin);
-            color: #fff;
-        }
-
-        .form-control:focus {
-            background: rgba(0, 0, 0, 0.3);
-            border-color: var(--gold);
-            box-shadow: 0 0 0 0.25rem var(--gold-glow);
-            color: #fff;
-        }
-        /* Modal Glassmorphism Effect */
-.modal-content {
-    background: var(--bg-card) !important;
-    border: 1px solid rgba(212, 175, 55, 0.15) !important;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
-    border-radius: 20px !important;
-}
-
-.modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-    padding: 1.5rem !important;
-}
-
-/* Custom Input Styling */
-.form-control {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: var(--text-main) !important;
-    border-radius: 10px !important;
-    padding: 12px 15px !important;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-color: var(--gold) !important;
-    box-shadow: 0 0 10px var(--gold-glow) !important;
-}
-
-/* Label Spacing */
-.tracking-wider {
-    font-size: 0.65rem !important;
-}
-
-/* Button link color */
-.btn-link:hover {
-    color: var(--white) !important;
-}/* Amélioration de la ligne du tableau */
-.tt tbody tr {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-    transition: background 0.2s;
-}
-
-.tt tbody tr:hover {
-    background: rgba(255, 255, 255, 0.01);
-}
-
-/* Boîte d'icône dorée */
-.icon-box-gold {
-    width: 40px; 
-    height: 40px; 
-    background: rgba(212, 175, 55, 0.1); 
-    border: 1px solid rgba(212, 175, 55, 0.2); 
-    border-radius: 10px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    color: var(--gold);
-    font-size: 1.1rem;
-}
-
-/* Boutons d'action minimalistes */
-.btn-action {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    transition: transform 0.2s;
-    padding: 0;
-}
-
-.btn-action.edit { color: var(--gold); opacity: 0.7; }
-.btn-action.delete { color: #ff4d4d; opacity: 0.7; }
-.btn-action:hover { transform: scale(1.2); opacity: 1; }
-
-/* Modal Inputs */
-.form-control {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 12px 15px !important;
-    border-radius: 10px !important;
-    color: white !important;
-}
-
-.tracking-wider {
-    letter-spacing: 1px;
-    font-weight: 700;
-    font-size: 0.7rem !important;
-}
     </style>
-    @stack('styles')
+    @yield('extra_css')
 </head>
-
 <body>
 
+    <input type="checkbox" id="sidebar-check">
+
     <aside class="sidebar">
-        <div class="sb-head">
-            <div class="brand-logo">COIFFEUR PRO</div>
-            <div style="font-size: 0.6rem; letter-spacing: 4px; color: var(--text-muted); margin-top: 5px;">EST. 2026
-            </div>
+        <div class="sidebar-header">
+            <a href="#" class="brand-logo">
+                ✦ <span class="brand-full">CoiffeurPro</span>
+            </a>
         </div>
 
-        <div class="sb-user">
-            <div class="u-av"><i class="bi bi-person-badge"></i></div>
-            <div class="user-info">
-                <div class="u-name">{{ Auth::user()->firstname }}</div>
-                <div style="font-size: 0.65rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">
-                    Administrateur</div>
+        <nav class="nav-list">
+            <a href="#" class="nav-link-custom active">
+                <i class="bi bi-grid-1x2"></i>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            <a href="#" class="nav-link-custom">
+                <i class="bi bi-calendar3"></i>
+                <span class="nav-text">Réservations</span>
+            </a>
+            <a href="#" class="nav-link-custom">
+                <i class="bi bi-scissors"></i>
+                <span class="nav-text">Prestations</span>
+            </a>
+            <a href="#" class="nav-link-custom">
+                <i class="bi bi-person-circle"></i>
+                <span class="nav-text">Mon Profil</span>
+            </a>
+
+            <div style="margin-top: auto; border-top: 1px solid var(--dark-border); padding-top: 1rem;">
+                <a href="#" class="nav-link-custom text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span class="nav-text">Déconnexion</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
             </div>
-        </div>
-
-        <nav class="sb-nav">
-            <div class="sec-lbl">Menu Principal</div>
-            <a href="{{ route('admin.dashboard') }}"
-                class="ni {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="bi bi-columns-gap"></i><span>Tableau de bord</span>
-            </a>
-
-            <div class="sec-lbl">Management</div>
-            <a href="{{ route('admin.users') }}" class="ni {{ request()->is('admin/users*') ? 'active' : '' }}">
-                <i class="bi bi-people"></i><span>Clients & Staff</span>
-            </a>
-            <a href="{{ route('admin.categories') }}"
-                class="ni {{ request()->is('admin/categories*') ? 'active' : '' }}">
-                <i class="bi bi-layers"></i><span>Catégories</span>
-            </a>
-
-            <div class="sec-lbl">Compte</div>
-            <a class="ni" href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                style="color: var(--red); opacity: 0.8;">
-                <i class="bi bi-power"></i><span>Déconnexion</span>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
         </nav>
     </aside>
 
-    <div class="main">
-        <header class="topbar">
-            <div>
-                <div class="t-title">@yield('page-title')</div>
-                <div class="t-sub">{{ now()->translatedFormat('l d F Y') }}</div>
+    <div class="main-wrapper">
+        <header class="top-nav">
+            <div class="d-flex align-items-center gap-3">
+                <label for="sidebar-check" class="toggle-btn">
+                    <i class="bi bi-list"></i>
+                </label>
+                <h5 class="m-0 fw-bold d-none d-md-block">@yield('page_title', 'Tableau de bord')</h5>
             </div>
 
-            <div class="d-flex align-items-center gap-3">
-                <button
-                    style="background: none; border: 1px solid var(--border-thin); color: var(--text-muted); border-radius: 8px; width: 40px; height: 40px;">
-                    <i class="bi bi-bell"></i>
-                </button>
+            <div class="d-flex align-items-center gap-4">
+                <div class="position-relative">
+                    <i class="bi bi-bell fs-5 text-muted"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"></span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <div class="text-end d-none d-sm-block">
+                        <div class="fw-bold small">{{ Auth::user()->ferstname ?? 'Utilisateur' }}</div>
+                        <div class="text-muted" style="font-size: 0.7rem;">Membre Gold</div>
+                    </div>
+                    <div style="width: 42px; height: 42px; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 12px; display: grid; place-items: center; color: var(--gold); font-weight: 800;">
+                        {{ substr(Auth::user()->ferstname ?? 'U', 0, 1) }}
+                    </div>
+                </div>
             </div>
         </header>
 
-        <main class="content">
+        <main class="content-area">
             @yield('content')
         </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
+    @yield('extra_js')
 </body>
-
 </html>

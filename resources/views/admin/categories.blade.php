@@ -37,7 +37,6 @@
                             @forelse($categories as $i => $cat)
                             <tr class="align-middle border-bottom border-white border-opacity-5">
                                 <td class="ps-4 text-muted small fw-bold" style="font-family: monospace; width: 60px;">
-                                    {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
                                 </td>
                                 <td class="py-4">
                                     <div class="d-flex align-items-center gap-3">
@@ -59,7 +58,7 @@
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="d-flex justify-content-end gap-2">
-                                        <a href="{{ route('category.edit', $cat->id) }}" class="btn-action edit" title="Modifier">
+                                        <a href="{{ route('admin.category.edit', $cat->id) }}" class="btn-action edit" title="Modifier">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <form action="{{ route('admin.category.destroy', $cat->id) }}" method="POST">
@@ -132,7 +131,7 @@
 {{-- ── MODAL DE CRÉATION ── --}}
 <div class="modal fade" id="createCatModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form method="POST" action="{{ route('category.store') }}" class="modal-content border-0 shadow-2xl" style="background: #1a1a1a; border-radius: 20px;">
+        <form method="POST" action="{{ route('admin.category.store') }}" class="modal-content border-0 shadow-2xl" style="background: #1a1a1a; border-radius: 20px;">
             @csrf
             <div class="modal-header border-bottom border-white border-opacity-5 p-4">
                 <h5 class="modal-title text-white" style="font-family:'Playfair Display', serif;">
