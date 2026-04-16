@@ -28,8 +28,9 @@ class ControllerService extends Controller
     public function store(Request $request)
     {
 
+      
         $validated = $request->validate([
-            'photo' => 'required|image|mimes:jpg,jpeg,png,webp,jfif,avif|max:2048',
+            'image_url' => 'required|image|mimes:jpg,jpeg,png,webp,jfif,avif|max:2048',
             'titre' => 'required|string|max:191',
             'duration' => 'required|string|max:191',
             'description' => 'required|string|max:191',
@@ -38,12 +39,13 @@ class ControllerService extends Controller
         ]);
 
         $validated['barber_id'] = Auth::user()->barber->id;
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
+        if ($request->hasFile('image_url')) {
+            $file = $request->file('image_url');
             $name = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('image', $name, 'public');
-            $validated['photo'] = $path;
+            $path = $file->storeAs('image_url', $name, 'public');
+            $validated['image_url'] = $path;
         }
+         
         Service::create($validated);
 
         return redirect()->back()

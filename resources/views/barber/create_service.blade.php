@@ -5,6 +5,15 @@
 
 @section('content')
     <div class="main" id="mn">
+          @if($errors->any())
+        <div class="alert-err shadow-sm mb-4">
+            <div>
+                @foreach($errors->all() as $e)
+                    <p class="mb-0 small"><i class="bi bi-exclamation-circle me-2"></i>{{ $e }}</p>
+                @endforeach
+            </div>
+        </div>
+    @endif
 
         {{-- TOPBAR --}}
         <div class="topbar d-flex justify-content-between align-items-center p-4">
@@ -165,7 +174,7 @@
                         <div class="col-12">
                             <label class="form-label text-gold small fw-bold">PHOTO DU SERVICE</label>
                             <div class="input-group">
-                                <input type="file" name="image" class="form-control bg-dark border-secondary text-white"
+                                <input type="file"  name="image_url" class="form-control bg-dark border-secondary text-white"
                                     id="inputGroupFile02" accept="image/*">
                                 <label class="input-group-text bg-secondary border-secondary text-white"
                                     for="inputGroupFile02"><i class="bi bi-upload"></i></label>

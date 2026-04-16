@@ -13,7 +13,7 @@
                 <div class="card h-100 border-0" style="background: var(--dark2); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease;">
                     {{-- Image du Service --}}
                     <div style="height: 200px; overflow: hidden; position: relative;">
-                        <img src="{{ $service->image_url }}" class="w-100 h-100 object-fit-cover" alt="{{ $service->titre }}">
+                        <img src="{{ asset('storage/'.$service->image_url )}}" class="w-100 h-100 object-fit-cover" alt="{{ $service->titre }}">
                         <div class="position-absolute top-0 end-0 m-3 badge bg-dark border border-gold text-gold p-2">
                             {{ $service->prix }} MAD
                         </div>
