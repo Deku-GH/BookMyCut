@@ -24,9 +24,9 @@ class AdminController extends Controller
         $totalServices = Service::all()->count();
         $totalBookings =Booking::all()->count();
        $latestUsers=User::latest()->take(5)->get();
-        $categories = Category::latest()->take(5)->get();
+        $services = Service::latest()->take(5)->get();
 
-        return view('admin.dashboard', compact('latestUsers','totalClients','totalBarbers','totalCategories','totalServices','totalBookings', 'categories'));
+        return view('admin.dashboard', compact('latestUsers','totalClients','totalBarbers','totalCategories','totalServices','totalBookings', 'services'));
     }
 
     // Users page

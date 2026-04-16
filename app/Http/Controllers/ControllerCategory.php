@@ -43,7 +43,7 @@ class ControllerCategory extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('admin.dashboard')
+        return redirect()->back()
                          ->with('success', '✦ Catégorie « ' . $request->name . ' » créée avec succès !');
     }
 

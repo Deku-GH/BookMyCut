@@ -53,7 +53,8 @@ Route::middleware('Role:Admin')->prefix('admin')->name('admin.')->group(function
         Route::delete('/services/{id}', [ControllerService::class, 'destroy'])->name('services.destroy');
         Route::post('/services', [ControllerService::class, 'store'])->name('create.service');
         Route::get('/barber/services', [ControllerService::class, 'create'])->name('create.services');
-        //=========================
+        
+        Route::get('/barber/timeslots', [ControllerTimeSlot::class, 'store'])->name('store.timeslot');
         Route::get('/barber/timeslots', [ControllerTimeSlot::class, 'index'])->name('timeslots.index');
 
     });

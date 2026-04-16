@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Timeslot;
 use App\Models\User;
@@ -12,9 +13,9 @@ class ControllerTimeSlot extends Controller
     public function index()
     {
         $timeslots = Timeslot::where('barber_id', Auth::user()->barber->id)->get();
-        
+        $categories =Category::all();
         // dd($timeslots);
-        return view('barber.timeslots', compact('timeslots'));
+        return view('barber.timeslots', compact('timeslots','categories'));
     }
 
     public function create()

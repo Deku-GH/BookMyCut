@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barber;
+use App\Models\Booking;
 use App\Models\Category;
+use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ControllerBarber extends Controller
@@ -29,10 +33,24 @@ class ControllerBarber extends Controller
     public function store(Request $request)
     {
         //
-    } public function dashboard()
+    }
+    public function dashboard()
     {
-        $categories = Category::all();
-        return view('barber.dashboard', compact('categories'));
+        $todayBookings = Booking::whereDate('created_at', now())->count();
+        $totalServices = Service::count();
+        $totalBookings = Booking::count();
+
+        $bookings = Booking::with(['user', 'service', 'timeSlot'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('barber.dashboard', compact(
+            'todayBookings',
+            'totalServices',
+            'totalBookings',
+            'bookings'
+        ));
     }
 
     /**
