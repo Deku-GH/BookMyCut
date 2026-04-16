@@ -39,4 +39,8 @@ class Barber extends Model
     {
         return $this->hasMany(Ratings::class);
     }
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
 }

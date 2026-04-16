@@ -148,6 +148,97 @@
             font-size: 0.75rem;
             letter-spacing: 1px;
         }
+          .filter-card {
+        background: var(--dark-card);
+        border: 1px solid var(--dark-border);
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-select-luxe {
+        background-color: var(--dark-bg);
+        border: 1px solid var(--dark-border);
+        color: var(--text-main);
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .form-select-luxe:focus {
+        border-color: var(--gold);
+        box-shadow: none;
+        background-color: var(--dark-bg);
+        color: white;
+    }
+
+    /* Tableau Style Luxe */
+    .table-luxe {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+    }
+
+    .table-luxe thead th {
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        padding: 1rem;
+        border: none;
+    }
+
+    .table-luxe tbody tr {
+        background: var(--dark-card);
+        transition: transform 0.2s;
+    }
+
+    .table-luxe tbody tr:hover {
+        transform: scale(1.005);
+        background: #1c1f26;
+    }
+
+    .table-luxe td {
+        padding: 1.2rem 1rem;
+        vertical-align: middle;
+        border: none;
+        font-size: 0.9rem;
+    }
+
+    .table-luxe td:first-child { border-radius: 12px 0 0 12px; }
+    .table-luxe td:last-child { border-radius: 0 12px 12px 0; }
+
+    /* Pills de Statut */
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+    .st-confirm { background: rgba(201, 168, 76, 0.1); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.2); }
+    .st-upcoming { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
+    .st-done { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.2); }
+    .st-cancel { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+    /* Actions */
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--dark-border);
+        background: var(--dark-bg);
+        color: var(--text-muted);
+        transition: 0.2s;
+    }
+    .btn-action:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+    }
 
         @media (max-width: 992px) {
             .sidebar { left: -260px; }
