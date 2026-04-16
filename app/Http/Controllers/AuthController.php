@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Barber;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -40,7 +41,17 @@ class AuthController extends Controller
             $barber = Barber::create([
                 'user_id' => $userId,
             ]);
-            //    dd($barber);
+            $request->validate([
+                'city' => 'required|string|max:191',
+                'street' => 'required|string|max:191',
+                'zip' => 'required|string|max:10',
+            ]);
+            $address = Address::create([
+                'barber_id' => $barber->id,
+                'city' => $request->city,
+                'street' => $request->street,
+                'code_post' => $request->zip,
+            ]);
         }
 
         Auth::login($user);

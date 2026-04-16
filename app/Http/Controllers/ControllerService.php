@@ -9,25 +9,27 @@ use Illuminate\Support\Facades\Auth;
 
 class ControllerService extends Controller
 {
- 
+
     public function index()
     {
-       
 
-     
+
+
     }
     public function create()
     {
-         $services = Service::where('barber_id', Auth::user()->barber->id)->get();
+        $services = Service::where('barber_id', Auth::user()->barber->id)->get();
         $categories = Category::all();
 
-        return view('barber.create_service', compact('categories','services'));
+        return view('barber.create_service', compact('categories', 'services'));
     }
 
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
+            'photo' => 'required|image|mimes:jpg,jpeg,png,webp,jfif,avif|max:2048',
             'titre' => 'required|string|max:191',
             'duration' => 'required|string|max:191',
             'description' => 'required|string|max:191',
@@ -36,7 +38,12 @@ class ControllerService extends Controller
         ]);
 
         $validated['barber_id'] = Auth::user()->barber->id;
-
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('image', $name, 'public');
+            $validated['photo'] = $path;
+        }
         Service::create($validated);
 
         return redirect()->back()
@@ -56,7 +63,7 @@ class ControllerService extends Controller
         return view('barber.edit_service', compact('service', 'categories'));
     }
 
-       public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $service = Service::findOrFail($id);
 
@@ -78,7 +85,7 @@ class ControllerService extends Controller
             ->with('success', 'Service updated successfully');
     }
 
-   
+
     public function destroy($id)
     {
         $service = Service::findOrFail($id);
@@ -92,4 +99,5 @@ class ControllerService extends Controller
         return redirect()->route('create.services')
             ->with('success', 'Service deleted successfully');
     }
+
 }

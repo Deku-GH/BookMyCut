@@ -230,7 +230,7 @@
         <div class="role-selector">
           @foreach($role as $roles)
             <button type="button" class="role-option {{ $loop->first ? 'active' : '' }}"
-              onclick="selectRole(this, '{{ $roles->id }}')">
+              onclick="selectRole(this, '{{ $roles->id }}', '{{ $roles->name }}')">
               {{ $roles->name }}
             </button>
           @endforeach
@@ -282,6 +282,27 @@
           <i class="bi bi-check2-circle"></i>
           <input type="password" name="password_confirmation" class="form-control" placeholder="••••••••" required>
         </div>
+        <div id="address-fields" style="display: none;">
+          <hr class="my-3">
+
+          <label class="form-label">City</label>
+          <div class="input-group-custom">
+            <i class="bi bi-geo-alt"></i>
+            <input type="text" name="city" class="form-control" placeholder="City">
+          </div>
+
+          <label class="form-label">Street</label>
+          <div class="input-group-custom">
+            <i class="bi bi-signpost"></i>
+            <input type="text" name="street" class="form-control" placeholder="Street">
+          </div>
+
+          <label class="form-label">Zip Code</label>
+          <div class="input-group-custom">
+            <i class="bi bi-mailbox"></i>
+            <input type="text" name="zip" class="form-control" placeholder="Zip Code">
+          </div>
+        </div>
 
         <div class="form-check mb-4">
           <input class="form-check-input" type="checkbox" id="terms" required>
@@ -300,14 +321,26 @@
   </div>
 
   <script>
-    function selectRole(btn, roleId) {
-      // Retirer la classe active de tous les boutons
-      document.querySelectorAll('.role-option').forEach(b => b.classList.remove('active'));
-      // Ajouter à l'élément cliqué
-      btn.classList.add('active');
-      // Mettre à jour l'input caché
-      document.getElementById('selected_role_id').value = roleId;
+  
+function selectRole(btn, roleId, roleName) {
+
+    document.querySelectorAll('.role-option')
+        .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    document.getElementById('selected_role_id').value = roleId;
+
+    const addressFields = document.getElementById('address-fields');
+
+    if (roleName.toLowerCase() === 'barber') {
+        addressFields.style.display = 'block';
+    } else {
+        addressFields.style.display = 'none';
     }
+}
+</script>
+
   </script>
 </body>
 
