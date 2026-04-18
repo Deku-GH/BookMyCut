@@ -3,23 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
-use App\Models\Category;
 use App\Models\Barber;
 use App\Models\Booking;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    // ── Dashboard ────────────────────────────────────────────────
     public function dashboard()
     {
        
         $services = Service::all();
-
-
-
         return view('client.dashboard', 
         compact('services'));
+
     }
+    public function barbers(){
+        $barbers = Barber::all();
+        return view('client.dashboard', 
+        compact('barbers'));
+    }
+    public function profile(){
+        $bookings  =Booking::all();
+        return view("client.profile",compact('bookings'));
+    }
+   public function updateProfile(Request $request)
+{
+    $user = Auth::user();
+
+    $data = $request->validate([
+        'ferstname' => 'required|string|max:191',
+        'lastname' => 'required|string|max:191',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'telephone' => 'required|string',
+        'password' => 'nullable|min:4|confirmed'
+    ]);
+
+    
+    $user->ferstname = $data['ferstname'];
+    $user->lastname = $data['lastname'];
+    $user->email = $data['email'];
+    $user->telephone = $data['telephone'];
+
+    
+    if (!empty($data['password'])) {
+        $user->password = Hash::make($data['password']);
+    }
+    //   dd($data);
+    $user->save();
+
+    return back()->with('success', 'Profil mis à jour ✅');
+}
 }
