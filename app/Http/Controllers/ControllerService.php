@@ -28,7 +28,7 @@ class ControllerService extends Controller
     public function store(Request $request)
     {
 
-      
+    //   dd($request);
         $validated = $request->validate([
             'image_url' => 'required|image|mimes:jpg,jpeg,png,webp,jfif,avif|max:2048',
             'titre' => 'required|string|max:191',
