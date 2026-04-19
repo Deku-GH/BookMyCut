@@ -57,7 +57,7 @@ class ControllerBarber extends Controller
 
      public function profile(){
         $bookings  =Booking::all();
-        return view("client.profile",compact('bookings'));
+        return view("barber.profile",compact('bookings'));
     }
    public function updateProfile(Request $request)
 {

@@ -8,11 +8,10 @@ use App\Models\User;
 
 class ControllerCategory extends Controller
 {
-    // ── Admin dashboard — passes all needed data ──────────────────
     public function dashboard()
     {
-       ;
     }
+    
 
     // ── Store new category ────────────────────────────────────────
     public function store(Request $request)
