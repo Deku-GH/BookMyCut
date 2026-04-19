@@ -56,7 +56,8 @@ class ControllerBarber extends Controller
     }
 
      public function profile(){
-        $bookings  =Booking::all();
+        $bookings  =Booking::where('barber_id',Auth::user()->barber->id)->get();
+        // dd($bookings);
         return view("barber.profile",compact('bookings'));
     }
    public function updateProfile(Request $request)
