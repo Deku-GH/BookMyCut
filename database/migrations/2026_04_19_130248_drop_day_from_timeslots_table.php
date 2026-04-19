@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('timeslots', function (Blueprint $table) {
+            $table->dropColumn('day');
         });
     }
 
@@ -21,7 +22,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('timeslots', function (Blueprint $table) {
-            $table->dropColumn('day'); 
+             $table->enum('day', [
+            'Monday','Tuesday','Wednesday','Thursday',
+            'Friday','Saturday','Sunday'
+        ]);
         });
     }
 };
