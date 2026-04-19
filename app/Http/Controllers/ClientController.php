@@ -55,4 +55,18 @@ class ClientController extends Controller
 
     return back()->with('success', 'Profil mis à jour ✅');
 }
+public function destroy(Request $request)
+{
+    $user = Auth::user();
+
+    Auth::logout();
+
+    $user->delete();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/')->with('success', 'Your account has been deleted');
+}
+
 }
