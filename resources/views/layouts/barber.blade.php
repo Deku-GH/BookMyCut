@@ -132,7 +132,200 @@
             display: flex; align-items: center; justify-content: center;
             margin: 1rem auto; transition: 0.3s;
         }
+
+        /* Style du lien de navigation */
+.nav-link-custom {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    margin: 8px 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+.nav-link-custom:hover, .nav-link-custom.active {
+    background: var(--dark3);
+    color: var(--white);
+    border-color: var(--border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Wrapper de l'icône/avatar */
+.nav-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style de l'avatar circulaire */
+.nav-avatar-img, .nav-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* Style carré arrondi comme tes cartes */
+    object-fit: cover;
+    border: 1.5px solid var(--gold);
+}
+.sidebar {
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.nav-avatar-placeholder {
+    background: var(--gold-dim);
+    color: var(--gold);
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Animation de la flèche au survol */
+.nav-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.7rem;
+}
+
+.nav-link-custom:hover .nav-arrow {
+    transform: translateX(3px);
+    color: var(--gold);
+}
+
+.nav-link-custom.active .nav-text {
+    font-weight: 600;
+}
+
+
         .btn-col:hover { background: var(--gold); color: var(--dark); }
+        /* === PROFILE PAGE FIX (match dashboard UI) === */
+
+/* Card luxe aligned with dashboard cards */
+.card-luxe {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+/* Typography fixes */
+.font-playfair {
+    font-family: 'Playfair Display', serif;
+}
+
+.text-gold {
+    color: var(--gold) !important;
+}
+
+/* Buttons */
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-l));
+    border: none;
+    color: #000;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.btn-gold:hover {
+    background: var(--gold-l);
+    transform: translateY(-1px);
+}
+
+/* Status badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.st-confirm {
+    background: rgba(16,185,129,0.15);
+    color: var(--green);
+}
+
+.st-upcoming {
+    background: rgba(59,130,246,0.15);
+    color: var(--blue);
+}
+
+.st-done {
+    background: rgba(16,185,129,0.15);
+    color: var(--green);
+}
+
+.st-cancel {
+    background: rgba(244,63,94,0.15);
+    color: var(--red);
+}
+
+/* Inputs */
+.form-control {
+    background: var(--dark3) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--white) !important;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 0 2px rgba(201,168,76,0.15);
+    background: var(--dark3);
+    color: var(--white);
+}
+
+/* Alerts */
+.alert-err {
+    background: rgba(244,63,94,0.08);
+    border: 1px solid rgba(244,63,94,0.25);
+    color: #fda4af;
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+}
+
+/* Action button (eye icon etc.) */
+.btn-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    transition: 0.3s;
+}
+
+.btn-action:hover {
+    background: var(--gold);
+    color: #000;
+}
+
+/* Fix small text inconsistencies */
+.small {
+    color: var(--muted);
+}
+
+/* Danger card */
+.border-danger {
+    border-color: rgba(244,63,94,0.25) !important;
+}
 
     </style>
 </head>
@@ -152,8 +345,7 @@
                 {{ strtoupper(substr(Auth::user()->firstname, 0, 1) . substr(Auth::user()->lastname, 0, 1)) }}
             </div>
             <div class="u-info">
-                <div class="u-name" style="font-size: 0.9rem; font-weight: 600;">{{ Auth::user()->firstname }}</div>
-                <div class="u-role" style="font-size: 0.75rem; color: var(--gold); opacity: 0.8;">Partenaire Elite</div>
+                <div class="u-role" style="font-size: 0.75rem; color: var(--gold); opacity: 0.8;">{{ Auth::user()->ferstname}}-{{  Auth::user()->lastname}}</div>
             </div>
         </div>
 
@@ -167,8 +359,13 @@
             <a class="ni {{ request()->routeIs('create.services') ? 'active' : '' }}" href="{{ route('create.services') }}">
                 <i class="bi bi-scissors"></i><span class="lbl">Services & Prix</span>
             </a>
-            <a class="ni {{ request()->routeIs('timeslots.*') ? 'active' : '' }}" href="{{ route('timeslots.index') }}">
+            <a class="ni {{ request()->routeIs('barber.planning.*') ? 'active' : '' }}" href="{{ route('barber.planning') }}">
                 <i class="bi bi-calendar-range"></i><span class="lbl">Planning</span>
+            </a>
+              <a href="{{ route('barber.profile') }}"
+                class="nav-link-custom {{ request()->routeIs('barber.profile') ? 'active' : '' }}">
+                <span class="nav-text">Mon Profil</span>
+                <i class="bi bi-chevron-right ms-auto small opacity-50 nav-arrow"></i>
             </a>
 
             <div class="sec-lbl">Système</div>
@@ -177,11 +374,7 @@
             </a>
         </nav>
 
-        <div class="sb-foot">
-            <button class="btn-col" id="toggleBtn">
-                <i class="bi bi-chevron-left" id="toggleIcon"></i>
-            </button>
-        </div>
+        
     </aside>
 
     <div class="main-wrapper" id="main-content">

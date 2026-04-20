@@ -299,15 +299,12 @@
                             <button type="submit" class="btn btn-submit">Se connecter</button>
                         </form>
 
-                        <div class="divider">OU</div>
+                   
 
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-social"><i class="bi bi-google me-2"></i>Google</button>
-                            <button class="btn btn-social"><i class="bi bi-facebook me-2"></i>Facebook</button>
-                        </div>
+                       
 
                         <div class="footer-link">
-                            Nouveau ici ? <a href="register.html">S'inscrire gratuitement</a>
+                            Nouveau ici ? <a href="{{ route('register') }}  ">S'inscrire gratuitement</a>
                         </div>
                     </div>
                 </div>

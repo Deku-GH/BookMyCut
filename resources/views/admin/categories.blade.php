@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container-fluid px-0">
-    {{-- ALERTES --}}
+
     @if(session('success'))
         <div class="alert-ok mb-4 shadow-sm" style="background: rgba(25, 135, 84, 0.1); border: 1px solid rgba(25, 135, 84, 0.2); color: #2ecc71; padding: 15px; border-radius: 12px;">
             <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
@@ -13,11 +13,10 @@
     @endif
 
     <div class="row g-4">
-        {{-- COLONNE TABLEAU --}}
+        
         <div class="col-lg-8">
             <div class="tc border-0 shadow-lg overflow-hidden" style="background: #1a1a1a; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05) !important;">
-                
-                {{-- Header --}}
+              
                 <div class="th d-flex justify-content-between align-items-center p-4 border-bottom border-white border-opacity-5" style="background: rgba(255,255,255,0.02);">
                     <div>
                         <h5 class="mb-1 text-white" style="font-family:'Playfair Display', serif; letter-spacing: 0.5px;">
@@ -96,7 +95,7 @@
             </div>
         </div>
 
-        {{-- COLONNE STATS --}}
+       
         <div class="col-lg-4">
             <div class="d-flex flex-column gap-4">
                 <div class="sc p-4 border-0 shadow-lg position-relative overflow-hidden" style="background: #1a1a1a; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05) !important;">
@@ -115,7 +114,7 @@
                     <h6 class="mb-4 text-white" style="font-family:'Playfair Display', serif;">
                         <i class="bi bi-bar-chart-line me-2" style="color: var(--gold);"></i>Densité du Catalogue
                     </h6>
-                    @php $maxSvc = $categories->max(fn($c) => $c->services_count ?? $c->services->count()) ?: 1; @endphp
+                    @php $maxSvc = $categories->max(fn($c) => $c->services_count ) ?: 1; @endphp
                     @foreach($categories as $cat)
                         @php 
                             $count = $cat->services_count ?? $cat->services->count();

@@ -125,7 +125,6 @@
         </div>
     </div>
 
-    {{-- SECTION : SERVICES --}}
     <div class="admin-card border-0 shadow-lg mt-4">
         <div class="admin-card-header d-flex justify-content-between align-items-center p-4">
             <h6 class="font-playfair text-white mb-0 fs-5">

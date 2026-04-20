@@ -35,7 +35,7 @@
                     </div>
                     <h4 class="font-playfair text-white mb-1">{{ Auth::user()->ferstname }} {{ Auth::user()->lastname }}
                     </h4>
-                    <p class="text-muted small mb-4">Membre depuis {{ Auth::user()->created_at->format('M Y') }}</p>
+                    <p class= small mb-4">Membre depuis {{ Auth::user()->created_at->format('M Y') }}</p>
 
                     <div class="d-flex justify-content-center gap-2 mb-4">
                         <span class="status-badge st-confirm">Client Gold</span>
@@ -45,7 +45,7 @@
                     <hr class="border-white border-opacity-10 my-4">
 
                     <div class="text-start">
-                        <label class="text-muted small text-uppercase fw-bold mb-2">Contact</label>
+                        <label class= small text-uppercase fw-bold mb-2">Contact</label>
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <i class="bi bi-envelope text-gold"></i>
                             <span class="small">{{ Auth::user()->email }}</span>
@@ -64,7 +64,7 @@
                     <h5 class="font-playfair text-white mb-4"><i class="bi bi-person-gear me-2 text-gold"></i>Modifier mes
                         informations</h5>
 
-                    <form action="{{ route('client.profile.update', ) }}" method="POST">
+                    <form action="{{ route('barber.profile.update', ) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row g-3">
@@ -122,10 +122,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-danger mb-1">Zone de danger</h6>
-                            <p class="text-muted small m-0">La suppression de votre compte est irréversible.</p>
+                            <p class= small m-0">La suppression de votre compte est irréversible.</p>
                            
                         </div>
-                         <form method="POST" action="{{ route('client.account.destroy') }}">
+                         <form method="POST" action="{{ route('barberor.account.destroy') }}">
                                 @csrf
                                 @method('DELETE')
 
@@ -140,40 +140,37 @@
             </div>
         </div>
         <div class="row g-4">
-            @forelse($bookings as $index => $booking)
+            @forelse($bookings as  $booking)
                 <div class="col-md-6 col-xl-4">
                     <div class="card-luxe h-100 p-0 overflow-hidden"
                         style="border: 1px solid var(--dark-border); background: var(--dark-card); border-radius: 20px; transition: transform 0.3s ease;">
 
-                        {{-- En-tête de la carte : ID et Date --}}
                         <div class="p-3 d-flex justify-content-between align-items-center border-bottom border-white border-opacity-5"
                             style="background: rgba(255,255,255,0.02);">
                             <span class="small fw-bold text-gold" style="font-family: monospace;">
-                                #{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}
+                              
                             </span>
-                            <span class="small text-muted">
+                            <span class="smal">
                                 <i class="bi bi-calendar-event me-1"></i> {{ $booking->created_at->format('d M, Y') }}
                             </span>
                         </div>
 
                         <div class="p-4">
-                            {{-- Info Client --}}
                             <div class="d-flex align-items-center gap-3 mb-4">
                                 <div
                                     style="width: 45px; height: 45px; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 12px; display: grid; place-items: center; color: var(--gold); font-weight: 800; font-size: 1.1rem;">
-                                    {{ strtoupper(substr($booking->user->firstname ?? 'C', 0, 1)) }}
+                                    {{ strtoupper(substr($booking->user->ferstname )) }}
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-white">{{ $booking->user->firstname ?? 'Client' }}
-                                        {{ $booking->user->lastname ?? '' }}
+                                    <div class="fw-bold text-white">{{ $booking->user->ferstname  }}
+                                        {{ $booking->user->lastname  }}
                                     </div>
-                                    <div class="text-muted small">Client régulier</div>
+                                    <div class="  small">Client régulier</div>
                                 </div>
                             </div>
 
-                            {{-- Détails du Service --}}
                             <div class="mb-4">
-                                <label class="small text-muted text-uppercase fw-bold mb-2"
+                                <label class="small   text-uppercase fw-bold mb-2"
                                     style="font-size: 0.65rem; letter-spacing: 1px;">Prestation</label>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span class="text-white fw-medium">{{ $booking->service->titre ?? 'N/A' }}</span>
@@ -198,7 +195,6 @@
                                 </div>
                             </div>
 
-                            {{-- Statut & Action --}}
                             <div
                                 class="d-flex align-items-center justify-content-between pt-3 border-top border-white border-opacity-5">
                                 @if($booking->status == 'confirmed')
@@ -220,7 +216,7 @@
                 <div class="col-12 text-center py-5">
                     <i class="bi bi-inbox fs-1 opacity-25 text-gold mb-3 d-block"></i>
                     <h5 class="text-white">Aucun historique</h5>
-                    <p class="text-muted">Les réservations terminées apparaîtront ici.</p>
+                    <p class="">Les réservations terminées apparaîtront ici.</p>
                 </div>
             @endforelse
         </div>

@@ -270,13 +270,6 @@
           <input type="password" name="password" class="form-control" placeholder="••••••••" required>
         </div>
 
-        <div class="strength-meter">
-          <div class="strength-dot" style="background: var(--primary-gold)"></div>
-          <div class="strength-dot"></div>
-          <div class="strength-dot"></div>
-          <div class="strength-dot"></div>
-        </div>
-
         <label class="form-label">Confirmer</label>
         <div class="input-group-custom">
           <i class="bi bi-check2-circle"></i>

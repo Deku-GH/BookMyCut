@@ -5,17 +5,16 @@
 
 @section('content')
     <div class="main" id="mn">
-          @if($errors->any())
-        <div class="alert-err shadow-sm mb-4">
-            <div>
-                @foreach($errors->all() as $e)
-                    <p class="mb-0 small"><i class="bi bi-exclamation-circle me-2"></i>{{ $e }}</p>
-                @endforeach
+        @if($errors->any())
+            <div class="alert-err shadow-sm mb-4">
+                <div>
+                    @foreach($errors->all() as $e)
+                        <p class="mb-0 small"><i class="bi bi-exclamation-circle me-2"></i>{{ $e }}</p>
+                    @endforeach
+                </div>
             </div>
-        </div>
-    @endif
+        @endif
 
-        {{-- TOPBAR --}}
         <div class="topbar d-flex justify-content-between align-items-center p-4">
             <div>
                 <div class="t-title"
@@ -32,7 +31,6 @@
         </div>
 
         <div class="content p-4">
-            {{-- FLASH MESSAGES --}}
             @if(session('success'))
                 <div class="alert-success-custom mb-4 p-3 d-flex align-items-center gap-3"
                     style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981; border-radius: 12px;">
@@ -40,7 +38,6 @@
                 </div>
             @endif
 
-            {{-- STAT CARDS --}}
             <div class="row g-3 mb-5">
                 <div class="col-6 col-xl-3">
                     <div class="sc p-3"
@@ -51,7 +48,8 @@
                         <div class="d-flex align-items-center gap-3">
                             <div class="sc-ico g"
                                 style="width: 40px; height: 40px; background: var(--gold-dim); color: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                <i class="bi bi-list-stars"></i></div>
+                                <i class="bi bi-list-stars"></i>
+                            </div>
                             <div>
                                 <div class="sc-val h4 fw-bold mb-0 text-white">{{ $services->count() }}</div>
                                 <div class="sc-lbl small text-uppercase text-muted"
@@ -60,12 +58,10 @@
                         </div>
                     </div>
                 </div>
-                {{-- Répéter pour les autres stats avec le même style --}}
             </div>
 
-            {{-- MAIN LAYOUT --}}
             <div class="row g-4">
-                <div class="col-lg-12"> {{-- Étendu à 12 pour une meilleure lisibilité --}}
+                <div class="col-lg-12">
                     <div class="tc"
                         style="background: var(--dark2); border: 1px solid var(--border); border-radius: 20px; overflow: hidden;">
                         <div
@@ -106,7 +102,8 @@
                                             <td>
                                                 <div class="fw-bold text-white">{{ $service->titre }}</div>
                                                 <div class="small text-muted text-truncate" style="max-width: 200px;">
-                                                    {{ $service->description }}</div>
+                                                    {{ $service->description }}
+                                                </div>
                                             </td>
                                             <td><span class="badge"
                                                     style="background: rgba(59, 130, 246, 0.1); color: var(--blue); border: 1px solid rgba(59, 130, 246, 0.2);">{{ $service->category->name ?? '—' }}</span>
@@ -137,7 +134,17 @@
                                             </td>
                                         </tr>
                                     @empty
-                                        {{-- Ton code @empty est déjà très bien, garde-le --}}
+                                        <tr>
+                                            <td colspan="7" class="text-center py-5">
+                                                <div
+                                                    class="d-flex flex-column align-items-center justify-content-center text-muted">
+                                                    <i class="bi bi-scissors" style="font-size: 2rem; opacity: 0.3;"></i>
+                                                    <div class="mt-3 fw-bold text-white">Aucun service trouvé</div>
+                                                    <div class="small">Commencez par ajouter un nouveau service</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
                                     @endforelse
                                 </tbody>
                             </table>
@@ -174,7 +181,7 @@
                         <div class="col-12">
                             <label class="form-label text-gold small fw-bold">PHOTO DU SERVICE</label>
                             <div class="input-group">
-                                <input type="file"  name="image_url" class="form-control bg-dark border-secondary text-white"
+                                <input type="file" name="image_url" class="form-control bg-dark border-secondary text-white"
                                     id="inputGroupFile02" accept="image/*">
                                 <label class="input-group-text bg-secondary border-secondary text-white"
                                     for="inputGroupFile02"><i class="bi bi-upload"></i></label>

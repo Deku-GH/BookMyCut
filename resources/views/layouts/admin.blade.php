@@ -42,6 +42,11 @@
 
         /* --- Sidebar Improvements --- */
         .sidebar {
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar {
             width: 270px;
             background: var(--dark2);
             border-right: 1px solid var(--border);
@@ -243,12 +248,123 @@
             transition: opacity 0.2s ease;
 
         }
+
+        /* Focus styles pour les inputs */
+        .form-control:focus {
+            background-color: rgba(201, 168, 76, 0.05) !important;
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+            color: white;
+        }
+
+        .luxury-input-group .input-group-text {
+            transition: 0.3s;
+        }
+
+        .form-control:focus+.input-group-text,
+        .luxury-input-group:focus-within .input-group-text {
+            border-color: var(--gold) !important;
+            color: var(--gold) !important;
+        }
+
+        .tiny {
+            font-size: 0.75rem;
+        }
+
+        /* the profiole */
+        .luxury-input {
+            background: var(--dark3) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--white) !important;
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .luxury-input:focus {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 15px rgba(201, 168, 76, 0.1) !important;
+            background: var(--dark4) !important;
+        }
+
+        .form-label {
+            font-size: 0.7rem !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* Style du lien de navigation */
+        .nav-link-custom {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            margin: 8px 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .nav-link-custom:hover,
+        .nav-link-custom.active {
+            background: var(--dark3);
+            color: var(--white);
+            border-color: var(--border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Wrapper de l'icône/avatar */
+        .nav-icon-wrapper {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Style de l'avatar circulaire */
+        .nav-avatar-img,
+        .nav-avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            /* Style carré arrondi comme tes cartes */
+            object-fit: cover;
+            border: 1.5px solid var(--gold);
+        }
+
+        .nav-avatar-placeholder {
+            background: var(--gold-dim);
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Animation de la flèche au survol */
+        .nav-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+        }
+
+        .nav-link-custom:hover .nav-arrow {
+            transform: translateX(3px);
+            color: var(--gold);
+        }
+
+        .nav-link-custom.active .nav-text {
+            font-weight: 600;
+        }
     </style>
 </head>
 
 <body>
 
-    <aside class="sidebar" id="sb">
+    <aside class="sidebar " id="sb">
         <div class="sb-head">
             <div class="brand-logo">
                 <i class="bi bi-stars"></i>
@@ -260,11 +376,10 @@
 
         <div class="sb-user">
             <div class="u-av">
-                {{ strtoupper(substr(Auth::user()->firstname, 0, 1) . substr(Auth::user()->lastname, 0, 1)) }}
+                {{ strtoupper(substr(Auth::user()->ferstname, 0, 1) . substr(Auth::user()->lastname, 0, 1)) }}
             </div>
             <div class="u-info">
-                <div class="u-name" style="font-size: 0.9rem; font-weight: 600;">{{ Auth::user()->firstname }}</div>
-                <div class="u-role" style="font-size: 0.75rem; color: var(--gold); opacity: 0.8;">Partenaire Elite</div>
+                <div class="u-role" style="font-size: 0.75rem; color: var(--gold); opacity: 0.8;">{{ Auth::user()->ferstname}}-{{  Auth::user()->lastname}}</div>
             </div>
         </div>
 
@@ -284,19 +399,20 @@
                 class="ni {{ request()->is('admin/categories*') ? 'active' : '' }}">
                 <i class="bi bi-layers"></i><span>Catégories</span>
             </a>
-
+            <a href="{{ route('admin.profile') }}"
+                class="nav-link-custom {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
+                <span class="nav-text">Mon Profil</span>
+                <i class="bi bi-chevron-right ms-auto small opacity-50 nav-arrow"></i>
+            </a>
             <div class="sec-lbl">Système</div>
             <a class="ni text-danger" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bi bi-door-open"></i><span class="lbl">Déconnexion</span>
             </a>
+
         </nav>
 
-        <div class="sb-foot">
-            <button class="btn-col" id="toggleBtn">
-                <i class="bi bi-chevron-left" id="toggleIcon"></i>
-            </button>
-        </div>
+
     </aside>
 
     <div class="main-wrapper" id="main-content">
@@ -330,21 +446,13 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
 
     <script>
-        const sb = document.getElementById('sb');
-        const main = document.getElementById('main-content');
+
+
         const btn = document.getElementById('toggleBtn');
         const icon = document.getElementById('toggleIcon');
-
         btn.addEventListener('click', () => {
             sb.classList.toggle('collapsed');
             main.classList.toggle('expanded');
-
-            // Animation de l'icône de toggle
-            if (sb.classList.contains('collapsed')) {
-                icon.classList.replace('bi-chevron-left', 'bi-chevron-right');
-            } else {
-                icon.classList.replace('bi-chevron-right', 'bi-chevron-left');
-            }
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

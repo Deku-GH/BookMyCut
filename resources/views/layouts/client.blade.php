@@ -260,11 +260,11 @@
         </div>
 
         <nav class="nav-list">
-            <a href="#" class="nav-link-custom active">
+            <a href="{{ Route('client.dashboard') }}" class="nav-link-custom active">
                 <i class="bi bi-grid-1x2"></i>
                 <span class="nav-text">Dashboard</span>
             </a>
-            <a href="#" class="nav-link-custom">
+            <a href="{{ Route('client.barbers') }}" class="nav-link-custom">
                 <i class="bi bi-calendar3"></i>
                 <span class="nav-text">Réservations</span>
             </a>
@@ -272,7 +272,7 @@
                 <i class="bi bi-scissors"></i>
                 <span class="nav-text">Prestations</span>
             </a>
-            <a href="#" class="nav-link-custom">
+            <a href="{{ route('client.profile') }}" class="nav-link-custom">
                 <i class="bi bi-person-circle"></i>
                 <span class="nav-text">Mon Profil</span>
             </a>

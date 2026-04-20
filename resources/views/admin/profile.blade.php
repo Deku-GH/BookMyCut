@@ -5,7 +5,6 @@
 
 @section('content')
 <div class="container-fluid p-0">
-    {{-- Alertes de succès ou d'erreur --}}
     @if(session('success'))
         <div class="alert alert-success border-0 shadow-sm mb-4" style="background: rgba(16, 185, 129, 0.1); color: var(--green);">
             <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
@@ -13,16 +12,13 @@
     @endif
 
     <div class="row g-4">
-        {{-- Colonne de Gauche : Aperçu Profil --}}
         <div class="col-lg-4">
             <div class="tc text-center py-5">
                 <div class="position-relative d-inline-block mb-4">
-                    {{-- Avatar --}}
                     <div class="u-av shadow-lg" 
                          style="width: 120px; height: 120px; font-size: 3rem; border: 2px solid var(--gold); background: var(--gold-dim); color: var(--gold); font-family: 'Playfair Display', serif;">
                         {{ strtoupper(substr(Auth::user()->firstname, 0, 1)) }}
                     </div>
-                    {{-- Bouton Caméra --}}
                     <button class="btn btn-sm position-absolute bottom-0 end-0 rounded-circle shadow-lg"
                             style="width: 40px; height: 40px; background: var(--gold); color: var(--dark); border: 2px solid var(--dark2);">
                         <i class="bi bi-camera-fill"></i>
@@ -57,7 +53,6 @@
             </div>
         </div>
 
-        {{-- Colonne de Droite : Formulaire --}}
         <div class="col-lg-8">
             <div class="tc p-4 p-md-5">
                 <h5 class="font-playfair text-white mb-4 d-flex align-items-center gap-2">
