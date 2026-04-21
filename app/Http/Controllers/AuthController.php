@@ -28,14 +28,20 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'telephone' => 'required',
             'role_id' => 'required',
-            'password' => 'required|min:4|confirmed'
+            'password' => 'required|min:4|confirmed',
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
         $validate['password'] = Hash::make($validate['password']);
         $role = Role::find($validate['role_id']);
-        // dd($role);
+         if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('photo', $name,'public');
+
+            $validate['photo'] = $path;
+        }
         $user = User::create($validate);
         $userId = $user->id;
-        //    dd($role);
 
         if ($role->name == "Barber") {
             $barber = Barber::create([
@@ -53,6 +59,7 @@ class AuthController extends Controller
                 'code_post' => $request->zip,
             ]);
         }
+       
 
         Auth::login($user);
 

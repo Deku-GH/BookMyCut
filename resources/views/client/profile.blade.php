@@ -24,15 +24,30 @@
             <div class="col-lg-4">
                 <div class="card-luxe text-center py-5">
                     <div class="position-relative d-inline-block mb-4">
-                        <div
-                            style="width: 120px; height: 120px; background: var(--gold-dim); border: 2px solid var(--gold); border-radius: 30px; display: grid; place-items: center; color: var(--gold); font-size: 3rem; font-weight: 900; font-family: 'Playfair Display', serif;">
-                            {{ substr(Auth::user()->ferstname ?? 'U', 0, 1) }}
-                        </div>
-                        <button class="btn btn-sm btn-gold position-absolute bottom-0 end-0 rounded-circle p-2 shadow"
-                            style="width: 35px; height: 35px;">
-                            <i class="bi bi-camera"></i>
-                        </button>
-                    </div>
+    {{-- Conteneur principal de l'avatar --}}
+    <div class="profile-avatar-container shadow" 
+         style="width: 120px; height: 120px; background: var(--gold-dim); border: 2px solid var(--gold); border-radius: 30px; overflow: hidden; display: grid; place-items: center;">
+        
+        @if(Auth::user()->photo)
+            {{-- Affichage de la photo si elle existe --}}
+            <img src="{{ asset('storage/' . Auth::user()->photo) }}" 
+                 alt="Photo de {{ Auth::user()->ferstname }}"
+                 class="w-100 h-100 object-fit-cover">
+        @else
+            {{-- Affichage de l'initiale si pas de photo --}}
+            <span style="color: var(--gold); font-size: 3rem; font-weight: 900; font-family: 'Playfair Display', serif; text-transform: uppercase; line-height: 1;">
+                {{ substr(Auth::user()->ferstname, 0, 1) }}
+            </span>
+        @endif
+    </div>
+
+    {{-- Optionnel : Bouton d'édition --}}
+    {{-- 
+    <button class="btn btn-sm btn-gold position-absolute bottom-0 end-0 rounded-circle p-2 shadow-sm" style="width: 35px; height: 35px; transform: translate(10px, 10px);">
+        <i class="bi bi-camera-fill"></i>
+    </button>
+    --}}
+</div>
                     <h4 class="font-playfair text-white mb-1">{{ Auth::user()->ferstname }} {{ Auth::user()->lastname }}
                     </h4>
                     <p class="text-muted small mb-4">Membre depuis {{ Auth::user()->created_at->format('M Y') }}</p>
@@ -123,17 +138,17 @@
                         <div>
                             <h6 class="text-danger mb-1">Zone de danger</h6>
                             <p class="text-muted small m-0">La suppression de votre compte est irréversible.</p>
-                           
+
                         </div>
-                         <form method="POST" action="{{ route('barber.account.destroy') }}">
-                                @csrf
-                                @method('DELETE')
+                        <form method="POST" action="{{ route('client.account.destroy') }}">
+                            @csrf
+                            @method('DELETE')
 
-                                <button class="btn btn-outline-danger btn-sm px-4"
-                                    onclick="return confirm('Are you sure?')">Delete Account</button>
+                            <button class="btn btn-outline-danger btn-sm px-4"
+                                onclick="return confirm('Are you sure?')">Delete Account</button>
 
-                                </button>
-                            </form>
+                            </button>
+                        </form>
 
                     </div>
                 </div>
@@ -157,7 +172,6 @@
                         </div>
 
                         <div class="p-4">
-                            {{-- Info Client --}}
                             <div class="d-flex align-items-center gap-3 mb-4">
                                 <div
                                     style="width: 45px; height: 45px; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 12px; display: grid; place-items: center; color: var(--gold); font-weight: 800; font-size: 1.1rem;">
@@ -171,7 +185,6 @@
                                 </div>
                             </div>
 
-                            {{-- Détails du Service --}}
                             <div class="mb-4">
                                 <label class="small text-muted text-uppercase fw-bold mb-2"
                                     style="font-size: 0.65rem; letter-spacing: 1px;">Prestation</label>
@@ -198,7 +211,6 @@
                                 </div>
                             </div>
 
-                            {{-- Statut & Action --}}
                             <div
                                 class="d-flex align-items-center justify-content-between pt-3 border-top border-white border-opacity-5">
                                 @if($booking->status == 'confirmed')

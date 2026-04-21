@@ -158,7 +158,6 @@
     {{-- MODAL CREATE (UI FIXES) --}}
     <div class="modal fade" id="createModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
-            {{-- N'oublie pas l'enctype pour les fichiers --}}
             <form method="POST" action="{{ route('create.service') }}" enctype="multipart/form-data" class="modal-content"
                 style="background: var(--dark2); border: 1px solid var(--gold); border-radius: 20px;">
                 @csrf
@@ -170,14 +169,12 @@
                 </div>
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        {{-- Nom du Service --}}
                         <div class="col-12">
                             <label class="form-label text-gold small fw-bold">NOM DU SERVICE</label>
                             <input type="text" name="titre" class="form-control bg-dark border-secondary text-white"
                                 placeholder="Ex: Coupe dégradée" required />
                         </div>
 
-                        {{-- Image Upload --}}
                         <div class="col-12">
                             <label class="form-label text-gold small fw-bold">PHOTO DU SERVICE</label>
                             <div class="input-group">
@@ -186,10 +183,9 @@
                                 <label class="input-group-text bg-secondary border-secondary text-white"
                                     for="inputGroupFile02"><i class="bi bi-upload"></i></label>
                             </div>
-                            <div class="form-text text-muted small">Format suggéré: JPG ou PNG (Max 2Mo).</div>
+                            <div class="form-text  small">Format suggéré: JPG ou PNG (Max 2Mo).</div>
                         </div>
 
-                        {{-- Durée & Prix --}}
                         <div class="col-sm-6">
                             <label class="form-label text-gold small fw-bold">DURÉE (MIN)</label>
                             <input type="number" name="duration" class="form-control bg-dark border-secondary text-white"
@@ -201,7 +197,6 @@
                                 value="50" required />
                         </div>
 
-                        {{-- Catégorie --}}
                         <div class="col-12">
                             <label class="form-label text-gold small fw-bold">CATÉGORIE</label>
                             <select class="form-select bg-dark border-secondary text-white" name="category_id" required>
@@ -211,7 +206,6 @@
                             </select>
                         </div>
 
-                        {{-- Description --}}
                         <div class="col-12">
                             <label class="form-label text-gold small fw-bold">DESCRIPTION</label>
                             <textarea class="form-control bg-dark border-secondary text-white" name="description"

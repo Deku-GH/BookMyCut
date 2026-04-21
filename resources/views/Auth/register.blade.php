@@ -224,7 +224,7 @@
         </div>
       @endif
 
-      <form method="POST" action="{{ route('register') }}">
+      <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="role-selector">
@@ -252,6 +252,16 @@
               <input type="text" name="lastname" class="form-control" placeholder="Ex: El Idrissi" required>
             </div>
           </div>
+        </div>
+        <div class="col-12">
+          <label class="form-label text-gold small fw-bold">PHOTO </label>
+          <div class="input-group">
+            <input type="file" name="photo" class="form-control bg-dark border-secondary text-white"
+              accept="image/*">
+            <label class="input-group-text bg-secondary border-secondary text-white" for="inputGroupFile02"><i
+                class="bi bi-upload"></i></label>
+          </div>
+          <div class="form-text  small">Format suggéré: JPG ou PNG (Max 2Mo).</div>
         </div>
         <label class="form-label">telephone </label>
         <div class="input-group-custom">
@@ -314,25 +324,25 @@
   </div>
 
   <script>
-  
-function selectRole(btn, roleId, roleName) {
 
-    document.querySelectorAll('.role-option')
+    function selectRole(btn, roleId, roleName) {
+
+      document.querySelectorAll('.role-option')
         .forEach(b => b.classList.remove('active'));
 
-    btn.classList.add('active');
+      btn.classList.add('active');
 
-    document.getElementById('selected_role_id').value = roleId;
+      document.getElementById('selected_role_id').value = roleId;
 
-    const addressFields = document.getElementById('address-fields');
+      const addressFields = document.getElementById('address-fields');
 
-    if (roleName.toLowerCase() === 'barber') {
+      if (roleName.toLowerCase() === 'barber') {
         addressFields.style.display = 'block';
-    } else {
+      } else {
         addressFields.style.display = 'none';
+      }
     }
-}
-</script>
+  </script>
 
   </script>
 </body>

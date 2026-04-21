@@ -14,7 +14,7 @@
                     </div>
                     <div>
                         <h2 class="h5 mb-0 text-white fw-bold">Paramètres de la catégorie</h2>
-                        <p class="text-muted small mb-0">ID : #{{ str_pad($category->id, 3, '0', STR_PAD_LEFT) }} — <span class="text-gold">{{ $category->name }}</span></p>
+                        <p class=" small mb-0">ID : #{{ str_pad($category->id, 3, '0', STR_PAD_LEFT) }} — <span class="text-gold">{{ $category->name }}</span></p>
                     </div>
                 </div>
                 <a href="{{ route('admin.categories') }}" class="btn btn-sm px-3" style="background: var(--dark3); border: 1px solid var(--border); color: var(--muted); border-radius: 8px;">
@@ -33,10 +33,10 @@
                         <label class="form-label small text-gold fw-bold text-uppercase mb-2" style="letter-spacing: 1px;">Nom de la catégorie</label>
                         <div class="input-group luxury-input-group">
                             <span class="input-group-text bg-transparent border-end-0" style="border-color: var(--border);">
-                                <i class="bi bi-tag text-muted"></i>
+                                <i class="bi bi-tag "></i>
                             </span>
                             <input type="text" name="name" 
-                                   class="form-control bg-transparent text-white is-invalid @enderror" 
+                                   class="form-control bg-transparent text-white is-invalid " 
                                    style="border-color: var(--border); border-left: none;"
                                    value="{{  $category->name }}" required>
                         </div>
@@ -46,7 +46,7 @@
                     <div class="col-12">
                         <label class="form-label small text-gold fw-bold text-uppercase mb-2" style="letter-spacing: 1px;">Description détaillée</label>
                         <textarea name="description" rows="5" 
-                                  class="form-control bg-transparent text-white is-invalid @enderror" 
+                                  class="form-control bg-transparent text-white is-invalid " 
                                   style="border-color: var(--border); resize: none;"
                                   placeholder="Décrivez les services inclus dans cette catégorie...">{{ $category->description }}</textarea>
                     </div>
@@ -57,7 +57,7 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bi bi-info-circle text-gold"></i>
-                                    <span class="small text-muted">Impact sur le catalogue :</span>
+                                    <span class="small ">Impact sur le catalogue :</span>
                                 </div>
                                 <span class="badge" style="background: var(--gold-dim); color: var(--gold);">
                                     {{ $category->services->count() }} service(s) liés
