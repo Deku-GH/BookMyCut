@@ -20,9 +20,9 @@ class Service extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function barbers()
+    public function barber()
     {
-        return $this->belongsToMany(Barber::class);
+        return $this->belongsTo(Barber::class);
     }
 
     public function bookings()

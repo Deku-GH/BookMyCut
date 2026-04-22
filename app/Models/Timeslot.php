@@ -9,8 +9,7 @@ class TimeSlot extends Model
     protected $fillable = [
         'barber_id',
         'start_time',
-        'end_time',
-        'day'
+        'date'
     ];
 
     public function barber()

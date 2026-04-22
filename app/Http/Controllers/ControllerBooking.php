@@ -40,8 +40,8 @@ class ControllerBooking extends Controller
                 return [
                     'start_time' => date('H:i', $start),
                     'end_time' => date('H:i', $end),
-                    'client_name' => $b->user->name ?? 'Client',
-                    'service' => $b->service->name ?? 'Service',
+                    'client_name' => $b->user->ferstname ?? 'Client',
+                    'service' => $b->service->titre ?? 'Service',
                     'status' => $b->status,
                 ];
             })->values()->toArray();

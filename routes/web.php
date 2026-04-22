@@ -27,8 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // ── Admin ──────────────────────────────────────────────────────
-    Route::middleware('Role:Admin')->prefix('admin')->name('admin.')->group(function () {
+     Route::middleware('Role:Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
         Route::get('/users', [AdminController::class, 'users'])->name('users');
@@ -61,6 +60,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/barber/planning', [ControllerBooking::class, 'planning'])->name('barber.planning');
         Route::get('/barber/timeslots', [ControllerTimeSlot::class, 'index'])->name('timeslots.index');
         Route::put('/profil', [ControllerBarber::class, 'updateProfile'])->name('barber.profile.update');
+        Route::put('/booking/{id}/confirm', [ControllerBooking::class, 'updatebooking'])->name('barber.booking.update');
         Route::get('/barber/profile', [ControllerBarber::class, 'profile'])->name('barber.profile');
         Route::delete('/account', [ControllerBarber::class, 'destroy'])->name('barber.account.destroy');
 
@@ -69,12 +69,10 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('Role:Client')->prefix('client')->name('client.')->group(function () {
         Route::get('/dashboard', [ClientController::class, 'dashboard'])->name('dashboard');
-        Route::get('/rdvs', [ClientController::class, 'rdvs'])->name('rdvs');
-        Route::patch('/rdvs/{id}/cancel', [ClientController::class, 'cancelBooking'])->name('rdv.cancel');
         Route::get('/services', [ClientController::class, 'services'])->name('services');
+        Route::get('/booking/{id}/create', [ControllerBooking::class, 'create'])->name('booking');
+        Route::post ('/booking/store', [ControllerBooking::class, 'store'])->name('booking.store');
         Route::get('/barbers', [ClientController::class, 'barbers'])->name('barbers');
-        Route::get('/reservation', [ClientController::class, 'reservation'])->name('reservation');
-        Route::post('/reservation', [ClientController::class, 'storeReservation'])->name('reservation.store');
         Route::put('/profil', [ClientController::class, 'updateProfile'])->name('profile.update');
         Route::get('/client/profile', [ClientController::class, 'profile'])->name('profile');
         Route::delete('/account', [ClientController::class, 'destroy'])->name('account.destroy');

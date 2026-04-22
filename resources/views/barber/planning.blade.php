@@ -44,7 +44,7 @@
                                             <i class="bi bi-check-all"></i>
                                         </div>
                                     </div>
-                            @else
+                            
 
 
                                 @endif

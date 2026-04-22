@@ -13,7 +13,6 @@ class ControllerCategory extends Controller
     }
     
 
-    // ── Store new category ────────────────────────────────────────
     public function store(Request $request)
     {
         $request->validate([
@@ -53,7 +52,6 @@ class ControllerCategory extends Controller
                          ->with('success', '✦ Catégorie « ' . $request->name . ' » mise à jour !');
     }
 
-    // ── Delete category ───────────────────────────────────────────
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
