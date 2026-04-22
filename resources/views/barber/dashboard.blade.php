@@ -110,13 +110,22 @@
                             </td>
 
                             <td>
-                                @if($booking->status == 'confirmed')
-                                    <span class="badge rounded-pill" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);">Confirmé</span>
-                                @elseif($booking->status == 'pending')
-                                    <span class="badge rounded-pill" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2);">En attente</span>
-                                @else
-                                    <span class="badge rounded-pill" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.2);">Annulé</span>
-                                @endif
+                               
+                                 <form action="{{ route('barber.booking.update', $booking->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="status" value="{{$booking->status == 'confirmed' ? 'canceled' : 'confirmed' }}">
+                                    
+                                    @if($booking->status == 'confirmed')
+                                        <button class="btn btn-sm btn-outline-danger border-0 bg-transparent shadow-none" title="canceled">
+                                            <i class="bi bi-person-x-fill fs-5"></i>
+                                        </button>
+                                    @else
+                                        <button class="btn btn-sm btn-outline-success border-0 bg-transparent shadow-none" title="confirmed">
+                                            <i class="bi bi-person-check-fill fs-5"></i>
+                                        </button>
+                                    @endif
+                                </form>
                             </td>
 
                             

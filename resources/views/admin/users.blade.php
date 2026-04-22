@@ -77,7 +77,7 @@
                             <td class="text-end pe-4">
                                 <form action="{{ route('admin.user.update', $u->id) }}" method="POST" class="d-inline">
                                     @csrf
-                                    @method('PATCH')
+                                    @method('put')
                                     <input type="hidden" name="status" value="{{ $u->status == 'Active' ? 'Inactive' : 'Active' }}">
                                     
                                     @if($u->status == 'Active')

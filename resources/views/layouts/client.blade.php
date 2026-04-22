@@ -245,6 +245,51 @@
             #sidebar-check:checked ~ .sidebar { left: 0; width: var(--sidebar-w); }
             .main-wrapper { margin-left: 0 !important; }
         }
+
+        /* the css of the booking */
+        .form-label-custom {
+        font-size: 0.75rem;
+        color: var(--gold);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control-luxe {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+        padding: 12px 15px;
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+    .form-control-luxe[readonly] {
+        background: rgba(255, 255, 255, 0.01) !important;
+        border-style: dashed;
+    }
+
+    .form-control-luxe:focus {
+        border-color: var(--gold) !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.15) !important;
+        outline: none;
+    }
+
+    .btn-gold {
+        background: var(--gold);
+        color: #000;
+        border: none;
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+    .btn-gold:hover {
+        background: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    }
     </style>
     @yield('extra_css')
 </head>
