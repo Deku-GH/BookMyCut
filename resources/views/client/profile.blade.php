@@ -24,30 +24,21 @@
             <div class="col-lg-4">
                 <div class="card-luxe text-center py-5">
                     <div class="position-relative d-inline-block mb-4">
-    {{-- Conteneur principal de l'avatar --}}
-    <div class="profile-avatar-container shadow" 
-         style="width: 120px; height: 120px; background: var(--gold-dim); border: 2px solid var(--gold); border-radius: 30px; overflow: hidden; display: grid; place-items: center;">
-        
-        @if(Auth::user()->photo)
-            {{-- Affichage de la photo si elle existe --}}
-            <img src="{{ asset('storage/' . Auth::user()->photo) }}" 
-                 alt="Photo de {{ Auth::user()->ferstname }}"
-                 class="w-100 h-100 object-fit-cover">
-        @else
-            {{-- Affichage de l'initiale si pas de photo --}}
-            <span style="color: var(--gold); font-size: 3rem; font-weight: 900; font-family: 'Playfair Display', serif; text-transform: uppercase; line-height: 1;">
-                {{ substr(Auth::user()->ferstname, 0, 1) }}
-            </span>
-        @endif
-    </div>
+                        <div class="profile-avatar-container shadow"
+                            style="width: 120px; height: 120px; background: var(--gold-dim); border: 2px solid var(--gold); border-radius: 30px; overflow: hidden; display: grid; place-items: center;">
 
-    {{-- Optionnel : Bouton d'édition --}}
-    {{-- 
-    <button class="btn btn-sm btn-gold position-absolute bottom-0 end-0 rounded-circle p-2 shadow-sm" style="width: 35px; height: 35px; transform: translate(10px, 10px);">
-        <i class="bi bi-camera-fill"></i>
-    </button>
-    --}}
-</div>
+                            @if(Auth::user()->photo)
+                                <img src="{{ asset('storage/' . Auth::user()->photo) }}"
+                                    alt="Photo de {{ Auth::user()->ferstname }}" class="w-100 h-100 object-fit-cover">
+                            @else
+                                <span
+                                    style="color: var(--gold); font-size: 3rem; font-weight: 900; font-family: 'Playfair Display', serif; text-transform: uppercase; line-height: 1;">
+                                    {{ substr(Auth::user()->ferstname, 0, 1) }}
+                                </span>
+                            @endif
+                        </div>
+
+                    </div>
                     <h4 class="font-playfair text-white mb-1">{{ Auth::user()->ferstname }} {{ Auth::user()->lastname }}
                     </h4>
                     <p class="text-muted small mb-4">Membre depuis {{ Auth::user()->created_at->format('M Y') }}</p>
@@ -160,7 +151,6 @@
                     <div class="card-luxe h-100 p-0 overflow-hidden"
                         style="border: 1px solid var(--dark-border); background: var(--dark-card); border-radius: 20px; transition: transform 0.3s ease;">
 
-                        {{-- En-tête de la carte : ID et Date --}}
                         <div class="p-3 d-flex justify-content-between align-items-center border-bottom border-white border-opacity-5"
                             style="background: rgba(255,255,255,0.02);">
                             <span class="small fw-bold text-gold" style="font-family: monospace;">
@@ -175,10 +165,10 @@
                             <div class="d-flex align-items-center gap-3 mb-4">
                                 <div
                                     style="width: 45px; height: 45px; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 12px; display: grid; place-items: center; color: var(--gold); font-weight: 800; font-size: 1.1rem;">
-                                    {{ strtoupper(substr($booking->user->firstname ?? 'C', 0, 1)) }}
+                                    {{ strtoupper(substr($booking->user->ferstname ?? 'C', 0, 1)) }}
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-white">{{ $booking->user->firstname ?? 'Client' }}
+                                    <div class="fw-bold text-white">{{ $booking->user->ferstname ?? 'Client' }}
                                         {{ $booking->user->lastname ?? '' }}
                                     </div>
                                     <div class="text-muted small">Client régulier</div>
