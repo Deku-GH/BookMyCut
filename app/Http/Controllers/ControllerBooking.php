@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barber;
 use Illuminate\Http\Request;
 
 use App\Models\Booking;
+use App\Models\Service;
+use App\Models\TimeSlot;
 
 class ControllerBooking extends Controller
 {
@@ -54,9 +57,12 @@ class ControllerBooking extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $service = Service::with('barber.user')->find($id);
+
+        // dd($service->barber->user->ferstname);
+        return view('client.booking', compact('service'));
     }
 
     /**
@@ -64,7 +70,29 @@ class ControllerBooking extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //    dd($request->barber_id);
+
+
+        $request->validate([
+            'start_time' => 'required|date_format:H:i',
+            'date' => 'required|date',
+        ]);
+        
+        $time = TimeSlot::create([
+            'start_time' => $request['start_time'],
+            'date' => $request['date'],
+            'barber_id' => $request['barber_id']
+            ]);
+            $booking = Booking::create([
+                'user_id'=>$request['user_id'],
+                'barber_id' => $request['barber_id'],
+                'service_id' => $request['service_id'],
+                'time_slot_id'=> $time->id,
+                
+                
+                ]);
+                dd($booking);
+
     }
 
     /**
@@ -78,9 +106,14 @@ class ControllerBooking extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function updatebooking( $id)
     {
-        //
+          $booking = Booking::find($id);
+        $booking->status = $booking->status == 'confirmed' ? 'canceled' : 'confirmed';
+        // dd($booking);
+        $booking->save();
+
+        return back()->with('success', 'Status updated');
     }
 
     /**
