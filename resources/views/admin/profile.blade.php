@@ -67,7 +67,7 @@
                     <div class="row g-4">
                         <div class="col-md-6">
                             <label class="form-label small text-gold text-uppercase fw-bold">Prénom</label>
-                            <input type="text" name="firstname" 
+                            <input type="text" name="ferstname" 
                                    class="form-control luxury-input  is-invalid" 
                                    value="{{  Auth::user()->ferstname }}">
                         </div>
