@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/category', [ControllerCategory::class, 'store'])->name('category.store');
         Route::get('/category/{id}', [ControllerCategory::class, 'edit'])->name('category.edit');
         Route::put('/category/{id}', [ControllerCategory::class, 'update'])->name('category.update');
-        Route::PATCH('/user/{id}', [AdminController::class, 'updateuser'])->name('user.update');
+        Route::put('/user/{id}', [AdminController::class, 'updateuser'])->name('user.update');
         Route::delete('/category/{id}', [ControllerCategory::class, 'destroy'])->name('category.destroy');
         Route::get('/admin/profile', [AdminController::class, 'profile'])->name('profile');
         Route::put('/profil', [AdminController::class, 'updateProfile'])->name('profile.update');
@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/profil', [ControllerBarber::class, 'updateProfile'])->name('barber.profile.update');
         Route::put('/booking/{id}/confirm', [ControllerBooking::class, 'updatebooking'])->name('barber.booking.update');
         Route::get('/barber/profile', [ControllerBarber::class, 'profile'])->name('barber.profile');
-        Route::delete('/account', [ControllerBarber::class, 'destroy'])->name('barber.account.destroy');
+        Route::delete('/delete/account', [ControllerBarber::class, 'destroy'])->name('barber.account.destroy');
 
 
     });
@@ -72,7 +72,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/services', [ClientController::class, 'services'])->name('services');
         Route::get('/booking/{id}/create', [ControllerBooking::class, 'create'])->name('booking');
         Route::post ('/booking/store', [ControllerBooking::class, 'store'])->name('booking.store');
-        Route::get('/barbers', [ClientController::class, 'barbers'])->name('barbers');
+        Route::get('/mybooking', [ClientController::class, 'mybooking'])->name('mybooking');
         Route::put('/profil', [ClientController::class, 'updateProfile'])->name('profile.update');
         Route::get('/client/profile', [ClientController::class, 'profile'])->name('profile');
         Route::delete('/account', [ClientController::class, 'destroy'])->name('account.destroy');
