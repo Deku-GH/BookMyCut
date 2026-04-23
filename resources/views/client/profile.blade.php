@@ -70,7 +70,7 @@
                     <h5 class="font-playfair text-white mb-4"><i class="bi bi-person-gear me-2 text-gold"></i>Modifier mes
                         informations</h5>
 
-                    <form action="{{ route('barber.profile.update', ) }}" method="POST">
+                    <form action="{{ route('client.profile.update' ) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row g-3">

@@ -22,7 +22,7 @@
 
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <h5 class="card-title font-playfair text-white m-0">{{ $service->titre }}</h5>
+                                <h5 class="card-title font-playfair text-black m-0">{{ $service->titre }}</h5>
                                 <span class="small text-muted"><i class="bi bi-clock me-1"></i>{{ $service->duration }}
                                     min</span>
                             </div>
