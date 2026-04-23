@@ -69,9 +69,9 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'telephone' => 'required|string',
             'password' => 'nullable|min:4|confirmed'
-        ]);
-
-
+            ]);
+            
+            // dd($request);
         $user->ferstname = $data['ferstname'];
         $user->lastname = $data['lastname'];
         $user->email = $data['email'];
@@ -132,16 +132,16 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
 
-    $user = Auth::user();
+        $user = Auth::user();
 
-    Auth::logout();
+        Auth::logout();
 
-    $user->delete();
+        $user->delete();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    return redirect('/')->with('success', 'Your account has been deleted');
+        return redirect('/')->with('success', 'Your account has been deleted');
 
     }
 }
