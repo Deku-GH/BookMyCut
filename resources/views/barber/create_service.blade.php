@@ -89,7 +89,7 @@
                                         <th>Catégorie</th>
                                         <th>Durée</th>
                                         <th>Prix</th>
-                                        <th>Statut</th>
+                                       
                                         <th class="text-end pe-4">Actions</th>
                                     </tr>
                                 </thead>
@@ -111,13 +111,7 @@
                                             <td class="text-white-50"><i
                                                     class="bi bi-clock me-1 text-gold"></i>{{ $service->duration }} min</td>
                                             <td class="fw-bold text-gold">{{ number_format($service->prix, 2) }} MAD</td>
-                                            <td>
-                                                <span
-                                                    class="badge rounded-pill {{ $service->active ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}"
-                                                    style="font-size: 0.65rem;">
-                                                    {{ $service->active ? '● Actif' : '○ Inactif' }}
-                                                </span>
-                                            </td>
+                                           
                                             <td class="text-end pe-4">
                                                 <div class="d-flex justify-content-end gap-2">
                                                     <a href="{{ route('services.edit', $service->id) }}" class="btn btn-sm"
@@ -125,7 +119,8 @@
                                                             class="bi bi-pencil"></i></a>
                                                     <form action="{{ route('services.destroy', $service->id) }}" method="POST"
                                                         onsubmit="return confirm('Supprimer ?')">
-                                                        @csrf @method('DELETE')
+                                                        @csrf
+                                                        @method('DELETE')
                                                         <button type="submit" class="btn btn-sm"
                                                             style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444;"><i
                                                                 class="bi bi-trash"></i></button>

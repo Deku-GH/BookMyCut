@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="container-fluid p-0">
-        {{-- Header de la page --}}
         <div class="d-flex justify-content-between align-items-end mb-5">
             <div>
                 <h2 class="font-playfair text-white mb-2">Planning des rendez-vous</h2>
