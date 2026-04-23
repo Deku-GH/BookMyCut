@@ -38,15 +38,18 @@ class ControllerBarber extends Controller
     }
     public function dashboard()
     {
+        $barber =Auth::user()->barber->id;
+        // dd($barber);
         $todayBookings = Booking::whereDate('created_at', now())->count();
-        $totalServices = Service::count();
-        $totalBookings = Booking::count();
+        $totalServices = Service::where('barber_id', $barber )->count();
+
+        $totalBookings = Booking::where('barber_id',  $barber )->count();
 
         $bookings = Booking::with(['user', 'service', 'timeSlot'])
-            ->latest()
-            ->take(5)
+            ->where('barber_id',$barber) 
+            ->where('status','pending') 
             ->get();
-
+             
         return view('barber.dashboard', compact(
             'todayBookings',
             'totalServices',
@@ -55,49 +58,50 @@ class ControllerBarber extends Controller
         ));
     }
 
-     public function profile(){
-        $bookings  =Booking::where('barber_id',Auth::user()->barber->id)->get();
+    public function profile()
+    {
+        $bookings = Booking::where('barber_id', Auth::user()->barber->id)->get();
         // dd($bookings);
-        return view("barber.profile",compact('bookings'));
+        return view("barber.profile", compact('bookings'));
     }
-   public function updateProfile(Request $request)
-{
-    $user = Auth::user();
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
 
-    $data = $request->validate([
-        'ferstname' => 'required|string|max:191',
-        'lastname' => 'required|string|max:191',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'telephone' => 'required|string',
-        'password' => 'nullable|min:4|confirmed'
-    ]);
+        $data = $request->validate([
+            'ferstname' => 'required|string|max:191',
+            'lastname' => 'required|string|max:191',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'telephone' => 'required|string',
+            'password' => 'nullable|min:4|confirmed'
+        ]);
 
-    
-    $user->ferstname = $data['ferstname'];
-    $user->lastname = $data['lastname'];
-    $user->email = $data['email'];
-    $user->telephone = $data['telephone'];
 
-    
-    if (!empty($data['password'])) {
-        $user->password = Hash::make($data['password']);
+        $user->ferstname = $data['ferstname'];
+        $user->lastname = $data['lastname'];
+        $user->email = $data['email'];
+        $user->telephone = $data['telephone'];
+
+
+        if (!empty($data['password'])) {
+            $user->password = Hash::make($data['password']);
+        }
+        //   dd($data);
+        $user->save();
+
+        return back()->with('success', 'Profil mis à jour ✅');
     }
-    //   dd($data);
-    $user->save();
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
 
-    return back()->with('success', 'Profil mis à jour ✅');
-}
-public function destroy(Request $request)
-{
-    $user = Auth::user();
+        Auth::logout();
 
-    Auth::logout();
+        $user->delete();
 
-    $user->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
-    return redirect('/')->with('success', 'Your account has been deleted');
-}
+        return redirect('/')->with('success', 'Your account has been deleted');
+    }
 }
