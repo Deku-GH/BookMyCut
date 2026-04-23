@@ -48,7 +48,7 @@ class ControllerCategory extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->back()
+        return redirect()->route('admin.categories')
                          ->with('success', '✦ Catégorie « ' . $request->name . ' » mise à jour !');
     }
 
