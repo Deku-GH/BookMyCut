@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Service;
 use App\Models\TimeSlot;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerBooking extends Controller
 {
@@ -18,39 +19,40 @@ class ControllerBooking extends Controller
 
     public function planning()
     {
+         $barber =Auth::user()->barber->id;
         $bookings = Booking::with(['timeSlot', 'service', 'user'])
-            ->where('barber_id', auth()->id())
+            ->where('barber_id',$barber )
+            ->where('status', 'confirmed')
             ->whereRelation('timeSlot', 'date', '>=', now()->startOfWeek()->toDateString())
             ->whereRelation('timeSlot', 'date', '<=', now()->endOfWeek()->toDateString())
-            ->orderBy('id')
             ->get();
+
+        $bookings = $bookings->sortBy(fn($b) => $b->timeSlot->date);
 
         $result = [];
 
-        foreach ($bookings->groupBy(function ($b) {
-            return optional($b->timeSlot)->date;
-        }) as $date => $dayBookings) {
+        foreach ($bookings->groupBy(fn($b) => $b->timeSlot->date) as $date => $dayBookings) {
 
-            $formattedBookings = $dayBookings->map(function ($b) {
+            $formattedBookings = [];
 
-                $start = strtotime($b->timeSlot->start_time);
-                $duration = $b->service->duration ?? 30;
-                $end = $start + ($duration * 60);
+            foreach ($dayBookings->sortBy(fn($b) => $b->timeSlot->start_time) as $booking) {
 
-                return [
+                $start = strtotime($booking->timeSlot->start_time);
+
+                $formattedBookings[] = [
                     'start_time' => date('H:i', $start),
-                    'end_time' => date('H:i', $end),
-                    'client_name' => $b->user->ferstname ?? 'Client',
-                    'service' => $b->service->titre ?? 'Service',
-                    'status' => $b->status,
+                    'end_time' => date('H:i', $start + ($booking->service->duration * 60)),
+                    'client_name' => $booking->user->ferstname,
+                    'service' => $booking->service->titre,
+                    'status' => $booking->status,
                 ];
-            })->values()->toArray();
+            }
 
             $result[$date] = [
                 'bookings' => $formattedBookings
             ];
         }
-        // dd($result);
+
         return view('barber.planning', compact('result'));
     }
 
@@ -70,28 +72,39 @@ class ControllerBooking extends Controller
      */
     public function store(Request $request)
     {
-        //    dd($request->barber_id);
-
 
         $request->validate([
             'start_time' => 'required|date_format:H:i',
             'date' => 'required|date',
         ]);
-        
-        $time = TimeSlot::create([
-            'start_time' => $request['start_time'],
-            'date' => $request['date'],
-            'barber_id' => $request['barber_id']
+
+        $check = TimeSlot::where('barber_id', $request->barber_id)
+            ->where('date', $request->date)
+            ->where('start_time', $request->start_time)
+            ->exists();
+                    // dd($check);
+        if ($check) {
+            return back()->withErrors([
+                'start_time' => 'This time is already booked.'
             ]);
-            $booking = Booking::create([
-                'user_id'=>$request['user_id'],
-                'barber_id' => $request['barber_id'],
-                'service_id' => $request['service_id'],
-                'time_slot_id'=> $time->id,
-                
-                
-                ]);
-                dd($booking);
+        }
+
+        $time = TimeSlot::create([
+            'start_time' => $request->start_time,
+            'date' => $request->date,
+            'barber_id' => $request->barber_id
+        ]);
+
+        $booking = Booking::create([
+            'user_id' => $request->user_id,
+            'barber_id' => $request->barber_id,
+            'service_id' => $request->service_id,
+            'time_slot_id' => $time->id,
+        ]);
+        // dd($booking);
+        return redirect()->back()
+            ->with('success', 'booking success ');
+
 
     }
 
@@ -106,11 +119,12 @@ class ControllerBooking extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function updatebooking( $id)
+    public function updatebooking(Request $request ,int $id)
     {
-          $booking = Booking::find($id);
-        $booking->status = $booking->status == 'confirmed' ? 'canceled' : 'confirmed';
-        // dd($booking);
+    // dd($request);
+        $booking = Booking::find($id);
+        $booking->status = $request['status'];
+        // dd($booking)
         $booking->save();
 
         return back()->with('success', 'Status updated');
