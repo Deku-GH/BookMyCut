@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreignId('barber_id')->constrained()->cascadeOnDelete();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->foreignId('time_slot_id')->constrained('timeslots')->cascadeOnDelete();
-            $table->enum('status', ['confirmed', 'canceled'])->default('confirmed');
+            $table->enum('status', ['confirmed','pending' ,'canceled'])->default('pending');
             $table->timestamps();
         });
     }

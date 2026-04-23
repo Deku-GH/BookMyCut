@@ -19,6 +19,7 @@ class ControllerService extends Controller
     public function create()
     {
         $services = Service::where('barber_id', Auth::user()->barber->id)->get();
+        
         $categories = Category::all();
 
         return view('barber.create_service', compact('categories', 'services'));
