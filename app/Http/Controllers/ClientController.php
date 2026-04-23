@@ -19,10 +19,11 @@ class ClientController extends Controller
         compact('services'));
 
     }
-    public function barbers(){
-        $barbers = Barber::all();
-        return view('client.dashboard', 
-        compact('barbers'));
+    public function mybooking(){
+        $booking = booking::where('user_id',Auth::user()->id)->get();
+        // dd($booking);
+        return view('client.barbers', 
+        compact('booking'));
     }
     public function profile(){
         $bookings  =Booking::all();
