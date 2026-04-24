@@ -381,13 +381,13 @@
                 <i class="bi bi-grid-1x2"></i>
                 <span class="nav-text">Dashboard</span>
             </a>
+            <a href="{{ Route('client.barbers') }}" class="nav-link-custom">
+                <i class="bi bi-scissors"></i>
+                <span class="nav-text">the barbers</span>
+            </a>
             <a href="{{ Route('client.mybooking') }}" class="nav-link-custom">
                 <i class="bi bi-calendar3"></i>
                 <span class="nav-text">my booking</span>
-            </a>
-            <a href="#" class="nav-link-custom">
-                <i class="bi bi-scissors"></i>
-                <span class="nav-text">Prestations</span>
             </a>
             <a href="{{ route('client.profile') }}" class="nav-link-custom">
                 <i class="bi bi-person-circle"></i>
