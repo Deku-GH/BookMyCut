@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barber;
 use App\Models\Category;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ControllerService extends Controller
     public function create()
     {
         $services = Service::where('barber_id', Auth::user()->barber->id)->get();
-        
+
         $categories = Category::all();
 
         return view('barber.create_service', compact('categories', 'services'));
@@ -101,6 +102,12 @@ class ControllerService extends Controller
 
         return redirect()->route('create.services')
             ->with('success', 'Service deleted successfully');
+    }
+    public function barberallservice(int $id) {
+        $services =Service::where('barber_id',$id)->get();
+        $barber =Barber::findOrFail($id);
+        return view('client.services',compact('barber','services'));
+       
     }
 
 }
