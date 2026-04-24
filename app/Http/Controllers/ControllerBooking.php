@@ -19,9 +19,9 @@ class ControllerBooking extends Controller
 
     public function planning()
     {
-         $barber =Auth::user()->barber->id;
+        $barber = Auth::user()->barber->id;
         $bookings = Booking::with(['timeSlot', 'service', 'user'])
-            ->where('barber_id',$barber )
+            ->where('barber_id', $barber)
             ->where('status', 'confirmed')
             ->whereRelation('timeSlot', 'date', '>=', now()->startOfWeek()->toDateString())
             ->whereRelation('timeSlot', 'date', '<=', now()->endOfWeek()->toDateString())
@@ -73,6 +73,8 @@ class ControllerBooking extends Controller
     public function store(Request $request)
     {
 
+        $Service = Service::find($request['service_id']);
+        // dd($Service->duration);
         $request->validate([
             'start_time' => 'required|date_format:H:i',
             'date' => 'required|date',
@@ -82,17 +84,23 @@ class ControllerBooking extends Controller
             ->where('date', $request->date)
             ->where('start_time', $request->start_time)
             ->exists();
-                    // dd($check);
+        // dd($check);
         if ($check) {
             return back()->withErrors([
                 'start_time' => 'This time is already booked.'
             ]);
         }
+        $startTimestamp = strtotime($request->start_time);
+        $endTime = date(
+            'H:i',
+            $startTimestamp + ($Service->duration * 60)
+        );
 
         $time = TimeSlot::create([
             'start_time' => $request->start_time,
             'date' => $request->date,
-            'barber_id' => $request->barber_id
+            'barber_id' => $request->barber_id,
+            'end_time' => $endTime
         ]);
 
         $booking = Booking::create([
@@ -119,9 +127,9 @@ class ControllerBooking extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function updatebooking(Request $request ,int $id)
+    public function updatebooking(Request $request, int $id)
     {
-    // dd($request);
+        // dd($request);
         $booking = Booking::find($id);
         $booking->status = $request['status'];
         // dd($booking)
