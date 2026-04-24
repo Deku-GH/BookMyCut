@@ -47,6 +47,12 @@ class ClientController extends Controller
 
         return view("client.profile");
     }
+    public function barbers(){
+        $barbers=Barber::with('address','user')->get();
+        // dd($barbers);
+        return view('client.barber',compact('barbers'));
+    }
+
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
