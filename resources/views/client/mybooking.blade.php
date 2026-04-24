@@ -148,7 +148,7 @@
                 </thead>
 
                 <tbody>
-                    @forelse($booking as $index => $booking)
+                    @forelse($bookings as $index => $booking)
                         <tr style="border-bottom: 1px solid var(--border);">
 
                             <td class="ps-4 small" style="font-family: monospace;">
@@ -223,4 +223,102 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-5">
+            <h6 class="mb-4 fw-bold text-white" style="font-family: 'Playfair Display', serif;">
+                <i class="bi bi-star-fill me-2 text-gold"></i>Évaluer vos services passés
+            </h6>
+            <div class="row g-3">
+                @foreach($bookings as $b)
+                    <div class="col-md-4">
+                        <div class="filter-card p-3 shadow-sm"
+                            style="background: var(--dark-card); border: 1px solid var(--gold-dim);">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-gold small fw-bold">#{{ $b->id}}</span>
+                                    <h6 class="text-white mb-1 mt-1">{{ $b->service->titre }}</h6>
+                                    <p class="text-black small mb-2"><i class="bi bi-clock me-1"></i> Terminé le
+                                        {{ $b->timeSlot->start_time }}
+                                    </p>
+                                </div>
+                                <span class="status-badge st-done">Terminé</span>
+                            </div>
+                            <button class="btn btn-sm w-100 mt-2"
+                                style="background: var(--gold); color: black; font-weight: 600;" data-bs-toggle="modal"
+                                data-bs-target="#ratingModal{{ $b->id }}">
+                                <i class="bi bi-chat-left-heart me-1"></i> Laisser un avis
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="ratingModal{{ $b->id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0" style="background: #15181f; border-radius: 20px;">
+                                <div class="modal-header border-bottom border-white border-opacity-5">
+                                    <h5 class="modal-title text-white">Évaluer : {{ $b->service->titre }}</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="text-center mb-4">
+                                            <label class="text-muted d-block mb-2">Votre note</label>
+                                            <div class="rating-stars fs-2" style="color: var(--gold); cursor: pointer;">
+
+                                                <i class="bi bi-star-fill" data-value="1"></i>
+                                                <i class="bi bi-star-fill" data-value="2"></i>
+                                                <i class="bi bi-star-fill" data-value="3"></i>
+                                                <i class="bi bi-star-fill" data-value="4"></i>
+                                                <i class="bi bi-star-fill" data-value="5"></i>
+
+                                                <input type="hidden" name="rating" id="rating" value="5">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="text-white small mb-2">Votre commentaire</label>
+                                            <textarea name="comment" class="form-control bg-dark border-secondary text-white"
+                                                rows="3" placeholder="Parlez-nous de votre expérience..."
+                                                style="border-radius: 12px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-top border-white border-opacity-5">
+                                        <button type="button" class="btn btn-sm text-white"
+                                            data-bs-dismiss="modal">Annuler</button>
+                                        <button type="submit" class="btn btn-sm"
+                                            style="background: var(--gold); color: black; font-weight: 600;">Envoyer
+                                            l'avis</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+            </div>
+        </div>
+        <script>
+            const stars = document.querySelectorAll('.rating-stars i');
+            const ratingInput = document.getElementById('rating');
+
+            stars.forEach(star => {
+
+                star.addEventListener('click', function () {
+
+                    let value = this.dataset.value;
+
+                    ratingInput.value = value;
+
+                    stars.forEach(s => {
+                        s.classList.remove('bi-star-fill');
+                        s.classList.add('bi-star');
+                    });
+
+                    for (let i = 0; i < value; i++) {
+                        stars[i].classList.remove('bi-star');
+                        stars[i].classList.add('bi-star-fill');
+                    }
+                });
+
+            });
+        </script>
 @endsection
