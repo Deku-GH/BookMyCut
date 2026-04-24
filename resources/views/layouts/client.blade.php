@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoiffeurPro – @yield('title', 'Espace Client')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <style>
@@ -33,7 +36,9 @@
         }
 
         /* --- LOGIQUE SIDEBAR (SANS JS) --- */
-        #sidebar-check { display: none; }
+        #sidebar-check {
+            display: none;
+        }
 
         .sidebar {
             width: var(--sidebar-w);
@@ -48,9 +53,14 @@
         }
 
         /* État rétracté */
-        #sidebar-check:checked ~ .sidebar { width: var(--sidebar-c); }
-        #sidebar-check:checked ~ .sidebar .nav-text, 
-        #sidebar-check:checked ~ .sidebar .brand-full { display: none; }
+        #sidebar-check:checked~.sidebar {
+            width: var(--sidebar-c);
+        }
+
+        #sidebar-check:checked~.sidebar .nav-text,
+        #sidebar-check:checked~.sidebar .brand-full {
+            display: none;
+        }
 
         .sidebar-header {
             padding: 2rem 1.5rem;
@@ -86,12 +96,15 @@
             margin-bottom: 0.4rem;
         }
 
-        .nav-link-custom:hover, .nav-link-custom.active {
+        .nav-link-custom:hover,
+        .nav-link-custom.active {
             background: var(--gold-dim);
             color: var(--gold);
         }
 
-        .nav-link-custom i { font-size: 1.3rem; }
+        .nav-link-custom i {
+            font-size: 1.3rem;
+        }
 
         /* --- CONTENU PRINCIPAL --- */
         .main-wrapper {
@@ -102,7 +115,9 @@
             flex-direction: column;
         }
 
-        #sidebar-check:checked ~ .main-wrapper { margin-left: var(--sidebar-c); }
+        #sidebar-check:checked~.main-wrapper {
+            margin-left: var(--sidebar-c);
+        }
 
         .top-nav {
             height: 90px;
@@ -124,7 +139,9 @@
             font-size: 1.5rem;
         }
 
-        .content-area { padding: 2.5rem; }
+        .content-area {
+            padding: 2.5rem;
+        }
 
         /* --- COMPOSANTS UI --- */
         .card-luxe {
@@ -135,7 +152,9 @@
             transition: 0.3s;
         }
 
-        .card-luxe:hover { border-color: rgba(201, 168, 76, 0.3); }
+        .card-luxe:hover {
+            border-color: rgba(201, 168, 76, 0.3);
+        }
 
         .btn-gold {
             background: var(--gold);
@@ -148,151 +167,204 @@
             font-size: 0.75rem;
             letter-spacing: 1px;
         }
-          .filter-card {
-        background: var(--dark-card);
-        border: 1px solid var(--dark-border);
-        border-radius: 15px;
-        padding: 1rem 1.5rem;
-        margin-bottom: 2rem;
-    }
 
-    .form-select-luxe {
-        background-color: var(--dark-bg);
-        border: 1px solid var(--dark-border);
-        color: var(--text-main);
-        border-radius: 10px;
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-    }
+        .filter-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+        }
 
-    .form-select-luxe:focus {
-        border-color: var(--gold);
-        box-shadow: none;
-        background-color: var(--dark-bg);
-        color: white;
-    }
+        .form-select-luxe {
+            background-color: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            color: var(--text-main);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
 
-    /* Tableau Style Luxe */
-    .table-luxe {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 8px;
-    }
+        .form-select-luxe:focus {
+            border-color: var(--gold);
+            box-shadow: none;
+            background-color: var(--dark-bg);
+            color: white;
+        }
 
-    .table-luxe thead th {
-        color: var(--text-muted);
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.7rem;
-        letter-spacing: 1px;
-        padding: 1rem;
-        border: none;
-    }
+        /* Tableau Style Luxe */
+        .table-luxe {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
 
-    .table-luxe tbody tr {
-        background: var(--dark-card);
-        transition: transform 0.2s;
-    }
+        .table-luxe thead th {
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            padding: 1rem;
+            border: none;
+        }
 
-    .table-luxe tbody tr:hover {
-        transform: scale(1.005);
-        background: #1c1f26;
-    }
+        .table-luxe tbody tr {
+            background: var(--dark-card);
+            transition: transform 0.2s;
+        }
 
-    .table-luxe td {
-        padding: 1.2rem 1rem;
-        vertical-align: middle;
-        border: none;
-        font-size: 0.9rem;
-    }
+        .table-luxe tbody tr:hover {
+            transform: scale(1.005);
+            background: #1c1f26;
+        }
 
-    .table-luxe td:first-child { border-radius: 12px 0 0 12px; }
-    .table-luxe td:last-child { border-radius: 0 12px 12px 0; }
+        .table-luxe td {
+            padding: 1.2rem 1rem;
+            vertical-align: middle;
+            border: none;
+            font-size: 0.9rem;
+        }
 
-    /* Pills de Statut */
-    .status-badge {
-        padding: 6px 14px;
-        border-radius: 100px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-    .st-confirm { background: rgba(201, 168, 76, 0.1); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.2); }
-    .st-upcoming { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
-    .st-done { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.2); }
-    .st-cancel { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .table-luxe td:first-child {
+            border-radius: 12px 0 0 12px;
+        }
 
-    /* Actions */
-    .btn-action {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--dark-border);
-        background: var(--dark-bg);
-        color: var(--text-muted);
-        transition: 0.2s;
-    }
-    .btn-action:hover {
-        border-color: var(--gold);
-        color: var(--gold);
-    }
+        .table-luxe td:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* Pills de Statut */
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .st-confirm {
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--gold);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        .st-upcoming {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .st-done {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .st-cancel {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Actions */
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--dark-border);
+            background: var(--dark-bg);
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+
+        .btn-action:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
 
         @media (max-width: 992px) {
-            .sidebar { left: -260px; }
-            #sidebar-check:checked ~ .sidebar { left: 0; width: var(--sidebar-w); }
-            .main-wrapper { margin-left: 0 !important; }
+            .sidebar {
+                left: -260px;
+            }
+
+            #sidebar-check:checked~.sidebar {
+                left: 0;
+                width: var(--sidebar-w);
+            }
+
+            .main-wrapper {
+                margin-left: 0 !important;
+            }
         }
 
         /* the css of the booking */
         .form-label-custom {
-        font-size: 0.75rem;
-        color: var(--gold);
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-        display: block;
-    }
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
 
-    .form-control-luxe {
-        background: rgba(255, 255, 255, 0.03) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: #fff !important;
-        padding: 12px 15px;
-        border-radius: 12px;
-        transition: 0.3s;
-    }
+        .form-control-luxe {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+            padding: 12px 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
 
-    .form-control-luxe[readonly] {
-        background: rgba(255, 255, 255, 0.01) !important;
-        border-style: dashed;
-    }
+        .form-control-luxe[readonly] {
+            background: rgba(255, 255, 255, 0.01) !important;
+            border-style: dashed;
+        }
 
-    .form-control-luxe:focus {
-        border-color: var(--gold) !important;
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.15) !important;
-        outline: none;
-    }
+        .form-control-luxe:focus {
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15) !important;
+            outline: none;
+        }
 
-    .btn-gold {
-        background: var(--gold);
-        color: #000;
-        border: none;
-        border-radius: 12px;
-        transition: 0.3s;
-    }
+        .btn-gold {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
 
-    .btn-gold:hover {
-        background: #fff;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-    }
+        .btn-gold:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Style additionnel pour les étoiles et les cartes */
+        .st-done {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .modal-content {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .rating-stars i:hover {
+            transform: scale(1.2);
+            transition: 0.2s;
+        }
     </style>
     @yield('extra_css')
 </head>
+
 <body>
 
     <input type="checkbox" id="sidebar-check">
@@ -309,9 +381,9 @@
                 <i class="bi bi-grid-1x2"></i>
                 <span class="nav-text">Dashboard</span>
             </a>
-            <a href="{{ Route('client.barbers') }}" class="nav-link-custom">
+            <a href="{{ Route('client.mybooking') }}" class="nav-link-custom">
                 <i class="bi bi-calendar3"></i>
-                <span class="nav-text">Réservations</span>
+                <span class="nav-text">my booking</span>
             </a>
             <a href="#" class="nav-link-custom">
                 <i class="bi bi-scissors"></i>
@@ -323,7 +395,8 @@
             </a>
 
             <div style="margin-top: auto; border-top: 1px solid var(--dark-border); padding-top: 1rem;">
-                <a href="#" class="nav-link-custom text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="#" class="nav-link-custom text-danger"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-left"></i>
                     <span class="nav-text">Déconnexion</span>
                 </a>
@@ -344,14 +417,16 @@
             <div class="d-flex align-items-center gap-4">
                 <div class="position-relative">
                     <i class="bi bi-bell fs-5 text-muted"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"></span>
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"></span>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                     <div class="text-end d-none d-sm-block">
                         <div class="fw-bold small">{{ Auth::user()->ferstname ?? 'Utilisateur' }}</div>
                         <div class="text-muted" style="font-size: 0.7rem;">Membre Gold</div>
                     </div>
-                    <div style="width: 42px; height: 42px; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 12px; display: grid; place-items: center; color: var(--gold); font-weight: 800;">
+                    <div
+                        style="width: 42px; height: 42px; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 12px; display: grid; place-items: center; color: var(--gold); font-weight: 800;">
                         {{ substr(Auth::user()->ferstname ?? 'U', 0, 1) }}
                     </div>
                 </div>
@@ -366,4 +441,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @yield('extra_js')
 </body>
+
 </html>

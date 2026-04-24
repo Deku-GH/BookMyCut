@@ -253,15 +253,12 @@
             </div>
           </div>
         </div>
-        <div class="col-12">
-          <label class="form-label text-gold small fw-bold">PHOTO </label>
+       <div class="mb-3">
+          <label class="form-label">Photo de profil</label>
           <div class="input-group">
-            <input type="file" name="photo" class="form-control bg-dark border-secondary text-white"
-              accept="image/*">
-            <label class="input-group-text bg-secondary border-secondary text-white" for="inputGroupFile02"><i
-                class="bi bi-upload"></i></label>
+            <input type="file" name="photo" class="form-control" accept="image/*">
           </div>
-          <div class="form-text  small">Format suggéré: JPG ou PNG (Max 2Mo).</div>
+          <div class="form-text " style="font-size: 0.7rem;">JPG/PNG, Max 2Mo.</div>
         </div>
         <label class="form-label">telephone </label>
         <div class="input-group-custom">
