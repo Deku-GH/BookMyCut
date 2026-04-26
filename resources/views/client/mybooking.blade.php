@@ -127,198 +127,224 @@
 @endsection
 
 @section('content')
-    <div class="tc overflow-hidden">
-        <div class="th d-flex justify-content-between align-items-center p-4 border-bottom border-white border-opacity-5">
-            <h6 class="mb-0 fw-bold text-white" style="font-family: 'Playfair Display', serif;">
-                <i class="bi bi-list-ul me-2 text-gold"></i>Your Réservations
-            </h6>
+    <div class="container-fluid p-0">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="alert-err shadow-sm mb-4">
+                <div>
+                    @foreach($errors->all() as $e)
+                        <p class="mb-0 small"><i class="bi bi-exclamation-circle me-2"></i>{{ $e }}</p>
+                    @endforeach
+                </div>
+            </div>
+        @endif
 
-        </div>
+        <div class="tc overflow-hidden">
+            <div
+                class="th d-flex justify-content-between align-items-center p-4 border-bottom border-white border-opacity-5">
+                <h6 class="mb-0 fw-bold text-white" style="font-family: 'Playfair Display', serif;">
+                    <i class="bi bi-list-ul me-2 text-gold"></i>Your Réservations
+                </h6>
 
-        <div class="table-responsive">
-            <table class="tt mb-0 w-100 table table-borderless align-middle">
-                <thead>
-                    <tr style="background: rgba(215, 0, 0, 0.01);">
-                        <th class="ps-4">Réf</th>
-                        <th>Client</th>
-                        <th>Service</th>
-                        <th>Heure</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+            </div>
 
-                <tbody>
-                    @forelse($bookings as $index => $booking)
-                        <tr style="border-bottom: 1px solid var(--border);">
+            <div class="table-responsive">
+                <table class="tt mb-0 w-100 table table-borderless align-middle">
+                    <thead>
+                        <tr style="background: rgba(215, 0, 0, 0.01);">
+                            <th class="ps-4">Réf</th>
+                            <th>Client</th>
+                            <th>Service</th>
+                            <th>Heure</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
-                            <td class="ps-4 small" style="font-family: monospace;">
-                                #{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}
-                            </td>
+                    <tbody>
+                        @forelse($bookings as $index => $booking)
+                            <tr style="border-bottom: 1px solid var(--border);">
 
-                            <td>
-                                <div class="d-flex align-items-center gap-3">
-                                    <div class="fw-medium">
-                                        {{ $booking->user->ferstname }} {{ $booking->user->lastname }}
+                                <td class="ps-4 small" style="font-family: monospace;">
+                                    #{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="fw-medium">
+                                            {{ $booking->user->ferstname }} {{ $booking->user->lastname }}
+                                        </div>
                                     </div>
+                                </td>
+
+                                <td>
+                                    <span class="badge"
+                                        style="background: rgba(254, 127, 1, 0.95); color: var(--white); border: 1px solid var(--border); font-weight: 400; padding: 6px 12px;">
+                                        {{ $booking->service->titre }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="bi bi-clock text-gold" style="font-size: 0.8rem;"></i>
+                                        <span>{{ $booking->timeSlot->start_time }}</span>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <form action="{{ route('barber.booking.update', $booking->id) }}" method="POST"
+                                        class="d-flex align-items-center gap-2 m-0">
+
+                                        @csrf
+                                        @method('PUT')
+
+
+                                        <select name="status"
+                                            class="form-select form-select-sm bg-transparent  border-secondary shadow-none m-0"
+                                            style="background-color:black; width: auto; border-radius: 8px; cursor: pointer;">
+
+                                            <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>
+                                                ⏳ En attente
+                                            </option>
+                                            <option style="color: black;" value="canceled" {{ $booking->status == 'canceled' ? 'selected' : '' }}>
+                                                ❌ Annulé
+                                            </option>
+
+                                        </select>
+
+                                        <button type="submit" class="btn btn-sm btn-primary m-0">
+                                            Update
+                                        </button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6">
+                                    <div class="text-center py-5">
+                                        <i class="bi bi-inbox mb-3 d-block opacity-25"
+                                            style="font-size: 3rem; color: var(--black);"></i>
+                                        <p class="text-muted">Aucune réservation pour le moment.</p>
+                                        <a href="{{ route('barber.dashboard') }}" class="btn btn-sm px-4"
+                                            style="background: var(--gold); color: var(--dark); border-radius: 6px; font-weight: 600;">
+                                            Actualiser
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-5">
+                <h6 class="mb-4 fw-bold text-white" style="font-family: 'Playfair Display', serif;">
+                    <i class="bi bi-star-fill me-2 text-gold"></i>Évaluer vos services passés
+                </h6>
+                <div class="row g-3">
+                    @foreach($bookingTermine as $b)
+                        <div class="col-md-4">
+                            <div class="filter-card p-3 shadow-sm"
+                                style="background: var(--dark-card); border: 1px solid var(--gold-dim);">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <span class="text-gold small fw-bold">#{{ $b->id}}</span>
+
+                                        <h6 class="text-white mb-1 mt-1">{{ $b->service->titre }}</h6>
+                                        <p class="text-black small mb-2"><i class="bi bi-clock me-1"></i> Terminé le
+                                            {{ $b->timeSlot->start_time }}
+                                        </p>
+                                    </div>
+                                    <span class="status-badge st-done">Terminé</span>
                                 </div>
-                            </td>
-
-                            <td>
-                                <span class="badge"
-                                    style="background: rgba(254, 127, 1, 0.95); color: var(--white); border: 1px solid var(--border); font-weight: 400; padding: 6px 12px;">
-                                    {{ $booking->service->titre }}
-                                </span>
-                            </td>
-
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-clock text-gold" style="font-size: 0.8rem;"></i>
-                                    <span>{{ $booking->timeSlot->start_time }}</span>
-                                </div>
-                            </td>
-
-                            <td>
-                                <form action="{{ route('barber.booking.update', $booking->id) }}" method="POST"
-                                    class="d-flex align-items-center gap-2 m-0">
-
-                                    @csrf
-                                    @method('PUT')
-
-
-                                    <select name="status"
-                                        class="form-select form-select-sm bg-transparent  border-secondary shadow-none m-0"
-                                        style="background-color:black; width: auto; border-radius: 8px; cursor: pointer;">
-
-                                        <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>
-                                            ⏳ En attente
-                                        </option>
-                                        <option style="color: black;" value="canceled" {{ $booking->status == 'canceled' ? 'selected' : '' }}>
-                                            ❌ Annulé
-                                        </option>
-
-                                    </select>
-
-                                    <button type="submit" class="btn btn-sm btn-primary m-0">
-                                        Update
-                                    </button>
-                                </form>
-                            </td>
-
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6">
-                                <div class="text-center py-5">
-                                    <i class="bi bi-inbox mb-3 d-block opacity-25"
-                                        style="font-size: 3rem; color: var(--black);"></i>
-                                    <p class="text-muted">Aucune réservation pour le moment.</p>
-                                    <a href="{{ route('barber.dashboard') }}" class="btn btn-sm px-4"
-                                        style="background: var(--gold); color: var(--dark); border-radius: 6px; font-weight: 600;">
-                                        Actualiser
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-5">
-            <h6 class="mb-4 fw-bold text-white" style="font-family: 'Playfair Display', serif;">
-                <i class="bi bi-star-fill me-2 text-gold"></i>Évaluer vos services passés
-            </h6>
-            <div class="row g-3">
-                @foreach($bookings as $b)
-                    <div class="col-md-4">
-                        <div class="filter-card p-3 shadow-sm"
-                            style="background: var(--dark-card); border: 1px solid var(--gold-dim);">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <span class="text-gold small fw-bold">#{{ $b->id}}</span>
-                                    <h6 class="text-white mb-1 mt-1">{{ $b->service->titre }}</h6>
-                                    <p class="text-black small mb-2"><i class="bi bi-clock me-1"></i> Terminé le
-                                        {{ $b->timeSlot->start_time }}
-                                    </p>
-                                </div>
-                                <span class="status-badge st-done">Terminé</span>
+                                <button class="btn btn-sm w-100 mt-2"
+                                    style="background: var(--gold); color: black; font-weight: 600;" data-bs-toggle="modal"
+                                    data-bs-target="#ratingModal{{ $b->id }}">
+                                    <i class="bi bi-chat-left-heart me-1"></i> Laisser un avis
+                                </button>
                             </div>
-                            <button class="btn btn-sm w-100 mt-2"
-                                style="background: var(--gold); color: black; font-weight: 600;" data-bs-toggle="modal"
-                                data-bs-target="#ratingModal{{ $b->id }}">
-                                <i class="bi bi-chat-left-heart me-1"></i> Laisser un avis
-                            </button>
                         </div>
-                    </div>
 
-                    <div class="modal fade" id="ratingModal{{ $b->id }}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content border-0" style="background: #15181f; border-radius: 20px;">
-                                <div class="modal-header border-bottom border-white border-opacity-5">
-                                    <h5 class="modal-title text-white">Évaluer : {{ $b->service->titre }}</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <form action="" method="POST">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="text-center mb-4">
-                                            <label class="text-muted d-block mb-2">Votre note</label>
-                                            <div class="rating-stars fs-2" style="color: var(--gold); cursor: pointer;">
+                        <div class="modal fade" id="ratingModal{{ $b->id }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content border-0" style="background: #15181f; border-radius: 20px;">
+                                    <div class="modal-header border-bottom border-white border-opacity-5">
 
-                                                <i class="bi bi-star-fill" data-value="1"></i>
-                                                <i class="bi bi-star-fill" data-value="2"></i>
-                                                <i class="bi bi-star-fill" data-value="3"></i>
-                                                <i class="bi bi-star-fill" data-value="4"></i>
-                                                <i class="bi bi-star-fill" data-value="5"></i>
+                                        <h5 class="modal-title text-white">Évaluer : {{ $b->barber->user->fesrtname }}</h5>
+                                        <h5 class="modal-title text-white">Évaluer : {{ $b->service->titre }}</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="{{ route('client.booking.rating') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="barber_id" value="{{ $b->barber->id }}">
+                                        <input type="hidden" name="booking_id" value="{{ $b->id }}">
+                                        <div class="modal-body">
+                                            <div class="text-center mb-4">
+                                                <label class="text-muted d-block mb-2">Votre note</label>
+                                                <div class="rating-stars">
+                                                    <i class="bi bi-star" data-value="1"></i>
+                                                    <i class="bi bi-star" data-value="2"></i>
+                                                    <i class="bi bi-star" data-value="3"></i>
+                                                    <i class="bi bi-star" data-value="4"></i>
+                                                    <i class="bi bi-star" data-value="5"></i>
 
-                                                <input type="hidden" name="rating" id="rating" value="5">
+                                                    <input type="hidden" name="stars" class="rating-input" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="text-white small mb-2">Votre commentaire</label>
+                                                <textarea name="comment"
+                                                    class="form-control bg-dark border-secondary text-white" rows="3"
+                                                    placeholder="Parlez-nous de votre expérience..."
+                                                    style="border-radius: 12px;"></textarea>
                                             </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label class="text-white small mb-2">Votre commentaire</label>
-                                            <textarea name="comment" class="form-control bg-dark border-secondary text-white"
-                                                rows="3" placeholder="Parlez-nous de votre expérience..."
-                                                style="border-radius: 12px;"></textarea>
+                                        <div class="modal-footer border-top border-white border-opacity-5">
+                                            <button type="button" class="btn btn-sm text-white"
+                                                data-bs-dismiss="modal">Annuler</button>
+                                            <button type="submit" class="btn btn-sm"
+                                                style="background: var(--gold); color: black; font-weight: 600;">Envoyer
+                                                l'avis</button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer border-top border-white border-opacity-5">
-                                        <button type="button" class="btn btn-sm text-white"
-                                            data-bs-dismiss="modal">Annuler</button>
-                                        <button type="submit" class="btn btn-sm"
-                                            style="background: var(--gold); color: black; font-weight: 600;">Envoyer
-                                            l'avis</button>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-        <script>
-            const stars = document.querySelectorAll('.rating-stars i');
-            const ratingInput = document.getElementById('rating');
+            <script>
+                document.querySelectorAll('.rating-stars').forEach((container) => {
 
-            stars.forEach(star => {
+                    const stars = container.querySelectorAll('i');
+                    const input = container.querySelector('.rating-input');
 
-                star.addEventListener('click', function () {
+                    stars.forEach((star, index) => {
 
-                    let value = this.dataset.value;
+                        star.addEventListener('click', () => {
 
-                    ratingInput.value = value;
+                            let value = index + 1; 
+                            input.value = value;
 
-                    stars.forEach(s => {
-                        s.classList.remove('bi-star-fill');
-                        s.classList.add('bi-star');
+                            stars.forEach((s, i) => {
+                                if (i < value) {
+                                    s.classList.add('bi-star-fill');
+                                    s.classList.remove('bi-star');
+                                } else {
+                                    s.classList.remove('bi-star-fill');
+                                    s.classList.add('bi-star');
+                                }
+                            });
+
+                        });
+
                     });
 
-                    for (let i = 0; i < value; i++) {
-                        stars[i].classList.remove('bi-star');
-                        stars[i].classList.add('bi-star-fill');
-                    }
                 });
-
-            });
-        </script>
+            </script>
 @endsection

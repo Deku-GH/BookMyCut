@@ -415,11 +415,14 @@
             </div>
 
             <div class="d-flex align-items-center gap-4">
-                <div class="position-relative">
-                    <i class="bi bi-bell fs-5 text-muted"></i>
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"></span>
-                </div>
+                <a href="{{ route('client.notifications') }}" class="text-decoration-none text-white">
+                    <div class="position-relative">
+                        <i class="bi bi-bell fs-5"></i>
+
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"></span>
+                    </div>
+                </a>
                 <div class="d-flex align-items-center gap-2">
                     <div class="text-end d-none d-sm-block">
                         <div class="fw-bold small">{{ Auth::user()->ferstname ?? 'Utilisateur' }}</div>
