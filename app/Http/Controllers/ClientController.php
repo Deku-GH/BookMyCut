@@ -8,6 +8,8 @@ use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+   
+
 
 class ClientController extends Controller
 {
@@ -26,7 +28,7 @@ class ClientController extends Controller
         $bookings = booking::where('user_id', Auth::user()->id)
             ->where('status', 'pending')
             ->get();
-        $bookingTermine = Booking::with('timeSlot')
+        $bookingTermine = Booking::with('timeSlot', 'barber')
             ->where('user_id', Auth::id())
             ->where('status', 'confirmed')
             ->whereRelation(
@@ -35,11 +37,12 @@ class ClientController extends Controller
                 '<',
                 now()->format('H:i')
             )
+            ->whereDoesntHave('rating')
             ->get();
         // dd($bookingTermine);
         return view(
             'client.mybooking',
-            compact('bookings','bookingTermine')
+            compact('bookings', 'bookingTermine')
         );
     }
     public function profile()
@@ -47,10 +50,11 @@ class ClientController extends Controller
 
         return view("client.profile");
     }
-    public function barbers(){
-        $barbers=Barber::with('address','user')->get();
+    public function barbers()
+    {
+        $barbers = Barber::with('address', 'user')->get();
         // dd($barbers);
-        return view('client.barber',compact('barbers'));
+        return view('client.barber', compact('barbers'));
     }
 
     public function updateProfile(Request $request)
@@ -93,5 +97,7 @@ class ClientController extends Controller
 
         return redirect('/')->with('success', 'Your account has been deleted');
     }
+
+
 
 }
