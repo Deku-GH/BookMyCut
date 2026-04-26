@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barber;
+use App\Models\Ratings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerRatings extends Controller
 {
@@ -27,7 +30,29 @@ class ControllerRatings extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $request->validate([
+            'stars' => 'required|integer',
+            'comment' => 'required|string',
+            'booking_id' => 'required|exists:bookings,id',
+        ]);
+
+        $user_id = Auth::user()->id;
+
+        Ratings::create([
+            'stars' => $request['stars'],
+            'comment' => $request['comment'],
+            'user_id' => $user_id,
+            'barber_id' => $request['barber_id'],
+            'booking_id' => $request['booking_id'],
+        ]);
+        $averageRating = Ratings::where('barber_id',  $request['barber_id'])
+            ->avg('stars');
+            $barber=Barber::find($request['barber_id']);
+            $barber->rating=$averageRating;
+
+          $barber->save();
+        return redirect()->back()->with('success', 'Rating added successfully');
     }
 
     /**
