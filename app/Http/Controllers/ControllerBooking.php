@@ -9,6 +9,7 @@ use App\Models\Booking;
 use App\Models\Service;
 use App\Models\TimeSlot;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ControllerBooking extends Controller
 {
@@ -79,12 +80,21 @@ class ControllerBooking extends Controller
             'start_time' => 'required|date_format:H:i',
             'date' => 'required|date',
         ]);
+        $startTimestamp = strtotime($request->start_time);
+        $endTime = date(
+            'H:i',
+            $startTimestamp + ($Service->duration * 60)
+        );
 
         $check = TimeSlot::where('barber_id', $request->barber_id)
             ->where('date', $request->date)
-            ->where('start_time', $request->start_time)
+            ->where(function ($query) use ($request, $endTime) {
+                $query->where('start_time', '<', $endTime)
+                    ->where('end_time', '>', $request->start_time);
+            })
             ->exists();
         // dd($check);
+        // dd(now());
         if ($check) {
             return back()->withErrors([
                 'start_time' => 'This time is already booked.'
@@ -130,12 +140,12 @@ class ControllerBooking extends Controller
     public function updatebooking(Request $request, int $id)
     {
         // dd($request);
-        $booking = Booking::find($id);
+        $booking = Booking::with('user')->find($id);
         $booking->status = $request['status'];
-        // dd($booking)
+
         $booking->save();
 
-        return back()->with('success', 'Status updated');
+        return redirect()->route('booking.send', $booking->id);
     }
 
     /**
